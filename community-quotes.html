@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greed Route — คำคม</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="community-quotes">
+
+<main class="container">
+  <div class="page-layout no-sidebars">
+    <div class="main-content">
+      <div class="tabs">
+        <div class="tab active" data-th="คำคมยอดนิยม" data-en="Popular Quotes">คำคมยอดนิยม</div>
+        <div class="tab" data-th="คำคมจากเพื่อน" data-en="Friend's Quotes">คำคมจากเพื่อน</div>
+        <div class="tab" data-th="ตามหมวดหมู่" data-en="By Genre">ตามหมวดหมู่</div>
+      </div>
+      <div id="quotesList"></div>
+      <div class="pagination" style="margin-top:20px">
+        <button>«</button><button class="active">1</button><button>2</button><button>3</button><button>»</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+window.onDataReady = function() {
+  initComponents();
+  populateGenreModal();
+  const qList = document.getElementById('quotesList');
+  if (!qList) return;
+  const quotesData = [
+    {text_th:'"การอ่านหนังสือเล่มดีเล่มหนึ่ง เปรียบเสมือนการสนทนากับจิตใจที่ยิ่งใหญ่ที่สุดของศตวรรษที่ผ่านมา"', text_en:'"Reading a great book is like having a conversation with the finest minds of past centuries."', author:'René Descartes', book:'Discourse on the Method', likes:1243},
+    {text_th:'"คนที่ไม่อ่านหนังสือ ไม่ได้มีข้อได้เปรียบเหนือคนที่อ่านไม่ออกเลย"', text_en:'"A person who won\'t read has no advantage over one who can\'t read."', author:'Mark Twain', book:'', likes:987},
+    {text_th:'"หนังสือเป็นกระจกวิเศษ: หากคนโง่มองเข้าไป คุณจะไม่คาดหวังว่าอัจฉริยะจะมองกลับออกมา"', text_en:'"A book is a mirror: if a fool peers in, you can\'t expect a genius to look back."', author:'J.K. Rowling', book:'', likes:856},
+    {text_th:'"ยิ่งฉันอ่านมากเท่าไร ยิ่งรู้มากเท่านั้น ยิ่งรู้มากเท่าไร ยิ่งไปได้ไกลมากเท่านั้น"', text_en:'"The more that you read, the more things you will know. The more that you learn, the more places you\'ll go."', author:'Dr. Seuss', book:'I Can Read with My Eyes Shut!', likes:2145}
+  ];
+  qList.innerHTML = quotesData.map(q => `<div class="quote-card">
+    <div class="ph-cover placeholder-img" style="width:60px;height:90px;border-radius:8px;flex-shrink:0">📕</div>
+    <div>
+      <div class="quote-text">${t(q,'text')}</div>
+      <div class="quote-author">— ${q.author}${q.book?' · '+q.book:''}</div>
+      <div class="quote-actions">
+        <button>❤️ ${q.likes.toLocaleString()}</button>
+        <button>🔗 ${lang==='th'?'แชร์':'Share'}</button>
+      </div>
+    </div>
+  </div>`).join('');
+};
+</script>
+</body>
+</html>

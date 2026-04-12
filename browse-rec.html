@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greed Route — แนะนำสำหรับคุณ</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="browse-rec">
+
+<main class="container">
+  <div class="page-layout no-left">
+    <div class="main-content">
+      <div class="section-header">
+        <h2 data-th="แนะนำสำหรับคุณ" data-en="Recommended for You">แนะนำสำหรับคุณ</h2>
+        <div class="view-toggle"><button class="active">▦</button><button>≡</button></div>
+      </div>
+      <p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:20px" data-th="💡 ให้คะแนนหนังสืออย่างน้อย 20 เล่มเพื่อรับคำแนะนำที่แม่นยำยิ่งขึ้น" data-en="💡 Rate at least 20 books to get more accurate recommendations">💡 ให้คะแนนหนังสืออย่างน้อย 20 เล่มเพื่อรับคำแนะนำที่แม่นยำยิ่งขึ้น</p>
+      <div id="recBooksGrid"></div>
+    </div>
+    <aside class="sidebar">
+      <h3 data-th="📂 หมวดหมู่" data-en="📂 Categories">📂 หมวดหมู่</h3>
+      <ul class="sidebar-nav">
+        <li><a href="#" class="active" data-th="ตามชั้นหนังสือ" data-en="By Shelf">ตามชั้นหนังสือ</a></li>
+        <li><a href="#" data-th="ตามหมวดหมู่" data-en="By Genre">ตามหมวดหมู่</a></li>
+      </ul>
+      <hr style="margin:12px 0;border:none;border-top:1px solid var(--border)">
+      <h3 data-th="⚡ การดำเนินการ" data-en="⚡ Actions">⚡ การดำเนินการ</h3>
+      <ul class="sidebar-nav">
+        <li><a href="#" data-th="แนะนำหนังสือให้เพื่อน" data-en="Give Recommendations">แนะนำหนังสือให้เพื่อน</a></li>
+        <li><a href="#" data-th="ขอคำแนะนำ" data-en="Ask for Recommendations">ขอคำแนะนำ</a></li>
+      </ul>
+    </aside>
+  </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+window.onDataReady = function() {
+  initComponents();
+  populateGenreModal();
+  const recGrid = document.getElementById('recBooksGrid');
+  if (!recGrid || !books.length) return;
+  const genreMap = {};
+  books.forEach(b => { if (!genreMap[b.genre]) genreMap[b.genre] = []; genreMap[b.genre].push(b); });
+  let html = '';
+  for (const gid of Object.keys(genreMap)) {
+    const g = genres.find(x => x.id === gid);
+    const gName = g ? (lang==='en' ? g.en : g.th) : gid;
+    html += `<div class="genre-section"><div class="genre-title">${gName}</div><div class="book-grid">${genreMap[gid].slice(0,5).map(bookCardHTML).join('')}</div></div>`;
+  }
+  recGrid.innerHTML = html;
+};
+</script>
+</body>
+</html>

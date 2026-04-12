@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greed Route — หนังสือของฉัน</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="mybooks">
+
+<main class="container">
+  <div class="page-layout left-only">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <h3 data-th="📚 ชั้นหนังสือ" data-en="📚 Bookshelves">📚 ชั้นหนังสือ</h3>
+      <ul class="sidebar-nav">
+        <li><a href="#" class="active" data-th="ทั้งหมด (156)" data-en="All (156)">ทั้งหมด (156)</a></li>
+        <li><a href="#" data-th="อยากอ่าน (47)" data-en="Want to Read (47)">อยากอ่าน (47)</a></li>
+        <li><a href="#" data-th="กำลังอ่าน (3)" data-en="Currently Reading (3)">กำลังอ่าน (3)</a></li>
+        <li><a href="#" data-th="อ่านแล้ว (98)" data-en="Read (98)">อ่านแล้ว (98)</a></li>
+        <li><a href="#" data-th="อ่านไม่จบ (8)" data-en="Did Not Finish (8)">อ่านไม่จบ (8)</a></li>
+      </ul>
+      <button class="btn btn-outline btn-sm" style="width:100%;margin-top:8px" data-th="+ เพิ่มชั้นหนังสือ" data-en="+ Add Shelf">+ เพิ่มชั้นหนังสือ</button>
+      <hr style="margin:16px 0;border:none;border-top:1px solid var(--border)">
+      <h3 data-th="📖 กิจกรรมการอ่าน" data-en="📖 Reading Activity">📖 กิจกรรมการอ่าน</h3>
+      <ul class="sidebar-nav">
+        <li><a href="#" data-th="แบบร่างรีวิว" data-en="Review Drafts">แบบร่างรีวิว</a></li>
+        <li><a href="#" data-th="ความท้าทายการอ่าน" data-en="Reading Challenge">ความท้าทายการอ่าน</a></li>
+        <li><a href="#" data-th="สถิติการอ่าน" data-en="Reading Stats">สถิติการอ่าน</a></li>
+      </ul>
+      <hr style="margin:16px 0;border:none;border-top:1px solid var(--border)">
+      <h3 data-th="➕ เพิ่มหนังสือ" data-en="➕ Add Books">➕ เพิ่มหนังสือ</h3>
+      <ul class="sidebar-nav">
+        <li><a href="browse-rec.html" data-th="แนะนำ" data-en="Recommendations">แนะนำ</a></li>
+        <li><a href="browse-explore.html" data-th="สำรวจ" data-en="Explore">สำรวจ</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+        <h2 data-th="หนังสือของฉัน" data-en="My Books">หนังสือของฉัน</h2>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div class="search-box" style="background:var(--secondary-bg)">
+            <span>🔍</span>
+            <input type="text" placeholder="ค้นหาในคอลเลกชัน..." style="color:var(--text);width:160px">
+          </div>
+          <div class="view-toggle">
+            <button class="active" title="Grid">▦</button>
+            <button title="List">≡</button>
+          </div>
+        </div>
+      </div>
+
+      <table class="book-table">
+        <thead>
+          <tr>
+            <th data-th="ปก" data-en="Cover">ปก</th>
+            <th data-th="ชื่อเรื่อง" data-en="Title">ชื่อเรื่อง</th>
+            <th data-th="ผู้แต่ง" data-en="Author">ผู้แต่ง</th>
+            <th data-th="คะแนนเฉลี่ย" data-en="Avg Rating">คะแนนเฉลี่ย</th>
+            <th data-th="คะแนนของฉัน" data-en="My Rating">คะแนนของฉัน</th>
+            <th data-th="ชั้น" data-en="Shelf">ชั้น</th>
+            <th data-th="วันที่เพิ่ม" data-en="Date Added">วันที่เพิ่ม</th>
+          </tr>
+        </thead>
+        <tbody id="myBooksTable"></tbody>
+      </table>
+      <div class="pagination" style="margin-top:20px">
+        <button>«</button><button class="active">1</button><button>2</button><button>3</button><button>»</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+window.onDataReady = function() {
+  initComponents();
+  populateGenreModal();
+  const table = document.getElementById('myBooksTable');
+  if (!table || !books.length) return;
+  const dates = ['12 เม.ย.','8 เม.ย.','1 เม.ย.','25 มี.ค.','20 มี.ค.','15 มี.ค.','10 มี.ค.','1 มี.ค.','20 ก.พ.','15 ก.พ.'];
+  table.innerHTML = books.slice(0,10).map((b,i) => {
+    const coverSrc = b.local_cover || b.cover_url || '';
+    const coverHTML = coverSrc
+      ? `<img src="${coverSrc}" style="width:40px;border-radius:4px" onerror="this.outerHTML='<div class=\\'ph-cover placeholder-img\\' style=\\'width:40px;height:60px;border-radius:4px;font-size:.5rem\\'>📕</div>'">`
+      : `<div class="ph-cover placeholder-img" style="width:40px;height:60px;border-radius:4px;font-size:.5rem">📕</div>`;
+    const bookId = b.id || b.title_en || t(b,'title');
+    const myRating = getUserRating(bookId);
+    const myStarsHTML = [1,2,3,4,5].map(s =>
+      `<span class="star${s <= myRating ? ' filled' : ''}" data-value="${s}" data-book="${encodeURIComponent(bookId)}">★</span>`
+    ).join('');
+    return `<tr>
+      <td class="cover-cell">${coverHTML}</td>
+      <td><strong>${t(b,'title')}</strong></td>
+      <td>${b.author||''}</td>
+      <td>⭐ ${b.rating||''}</td>
+      <td><span class="star-rating" data-book="${encodeURIComponent(bookId)}" style="font-size:.8rem">${myStarsHTML}</span></td>
+      <td>${shelfDropdownHTML(bookId)}</td>
+      <td style="font-size:.8rem;color:var(--text-muted)">${dates[i]}</td>
+    </tr>`;
+  }).join('');
+};
+</script>
+</body>
+</html>

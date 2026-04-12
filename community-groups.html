@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greed Route — กลุ่ม</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="community-groups">
+
+<main class="container">
+  <div class="page-layout no-sidebars">
+    <div class="main-content">
+      <div class="section-header">
+        <h2 data-th="👥 กลุ่มที่แนะนำ" data-en="👥 Featured Groups">👥 กลุ่มที่แนะนำ</h2>
+      </div>
+      <div class="book-grid grid-4" id="groupsGrid" style="gap:20px"></div>
+      <div class="section-header" style="margin-top:32px">
+        <h2 data-th="🔥 กลุ่มยอดนิยม" data-en="🔥 Popular Groups">🔥 กลุ่มยอดนิยม</h2>
+      </div>
+      <div class="book-grid grid-4" id="popularGroupsGrid" style="gap:20px"></div>
+    </div>
+  </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+window.onDataReady = function() {
+  initComponents();
+  populateGenreModal();
+  const groupsData = [
+    {name_th:'นักอ่านจิตวิทยา', name_en:'Psychology Readers', members:12540, icon:'🧠'},
+    {name_th:'คนรักนิยาย', name_en:'Fiction Lovers', members:8930, icon:'📖'},
+    {name_th:'แฟนตาซีไทยแลนด์', name_en:'Fantasy Thailand', members:6720, icon:'🧙'},
+    {name_th:'Dev Bookworms', name_en:'Dev Bookworms', members:4510, icon:'💻'},
+    {name_th:'มังงะคลับ', name_en:'Manga Club', members:15200, icon:'📚'},
+    {name_th:'Sci-Fi Thailand', name_en:'Sci-Fi Thailand', members:3890, icon:'🚀'},
+    {name_th:'ชมรมนักเขียน', name_en:'Writers Circle', members:2340, icon:'✍️'},
+    {name_th:'คนรักสุขภาพ', name_en:'Health & Wellness', members:5670, icon:'💪'}
+  ];
+  function groupCardHTML(g) {
+    return `<div class="group-card">
+      <div class="group-icon">${g.icon}</div>
+      <h4>${t(g,'name')}</h4>
+      <div class="members">${g.members.toLocaleString()} ${lang==='th'?'สมาชิก':'members'}</div>
+      <button class="btn btn-outline btn-sm" style="margin-top:8px">${lang==='th'?'เข้าร่วม':'Join'}</button>
+    </div>`;
+  }
+  const gGrid = document.getElementById('groupsGrid');
+  if (gGrid) gGrid.innerHTML = groupsData.slice(0,4).map(groupCardHTML).join('');
+  const pgGrid = document.getElementById('popularGroupsGrid');
+  if (pgGrid) pgGrid.innerHTML = groupsData.slice(4).map(groupCardHTML).join('');
+};
+</script>
+</body>
+</html>
