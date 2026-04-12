@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greed Route — หนังสือใหม่</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="browse-new">
+
+<main class="container">
+  <div class="page-layout no-left">
+    <div class="main-content">
+      <div class="section-header">
+        <h2 data-th="📗 หนังสือใหม่" data-en="📗 New Releases">📗 หนังสือใหม่</h2>
+        <div class="view-toggle"><button class="active">▦</button><button>≡</button></div>
+      </div>
+      <div id="newReleasesGrid"></div>
+    </div>
+    <aside class="sidebar">
+      <h3 data-th="🔖 ตัวกรอง" data-en="🔖 Filters">🔖 ตัวกรอง</h3>
+      <ul class="sidebar-nav">
+        <li><a href="#" class="active" data-th="ตามหมวดหมู่" data-en="By Genre">ตามหมวดหมู่</a></li>
+        <li><a href="#" data-th="ตามผู้แต่ง" data-en="By Author">ตามผู้แต่ง</a></li>
+        <li><a href="#" data-th="ตามวันที่ตีพิมพ์" data-en="By Publication Date">ตามวันที่ตีพิมพ์</a></li>
+        <li><a href="#" data-th="ตามคะแนน" data-en="By Rating">ตามคะแนน</a></li>
+        <li><a href="#" data-th="ตามรีวิว" data-en="By Review">ตามรีวิว</a></li>
+      </ul>
+      <hr style="margin:16px 0;border:none;border-top:1px solid var(--border)">
+      <h3 data-th="🔥 ยอดนิยม" data-en="🔥 Popular">🔥 ยอดนิยม</h3>
+      <div class="book-grid grid-3" id="popularNewBooks" style="gap:8px"></div>
+    </aside>
+  </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+window.onDataReady = function() {
+  initComponents();
+  populateGenreModal();
+  const newGrid = document.getElementById('newReleasesGrid');
+  if (!newGrid || !books.length) return;
+  let html = '';
+  genres.slice(0,4).forEach(g => {
+    const gBooks = books.filter(b => b.genre === g.id).slice(0,5);
+    const gName = lang==='en' ? g.en : g.th;
+    html += `<div class="genre-section"><div class="genre-title">${gName}</div><div class="book-grid">${gBooks.map(bookCardHTML).join('')}</div></div>`;
+  });
+  newGrid.innerHTML = html;
+  const popNew = document.getElementById('popularNewBooks');
+  if (popNew) popNew.innerHTML = books.slice(0,3).map(b => {
+    const coverSrc = b.local_cover || b.cover_url || '';
+    const title = t(b,'title');
+    return `<div class="book-card" style="font-size:.7rem">${coverSrc ? `<img class="book-cover" src="${coverSrc}" alt="${title}" style="aspect-ratio:2/3;object-fit:cover;border-radius:8px">` : `<div class="book-cover ph-cover" style="background:var(--primary-lightest);display:flex;align-items:center;justify-content:center;font-size:.6rem;padding:4px">${title}</div>`}</div>`;
+  }).join('');
+};
+</script>
+</body>
+</html>

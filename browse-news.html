@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greed Route — ข่าวสารและบทสัมภาษณ์</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="browse-news">
+
+<main class="container">
+  <div class="page-layout no-right">
+    <aside class="sidebar">
+      <h3 data-th="📂 หมวดหมู่" data-en="📂 Categories">📂 หมวดหมู่</h3>
+      <ul class="sidebar-nav">
+        <li><a href="#" class="active" data-th="ข่าวล่าสุด" data-en="Latest News">📰 ข่าวล่าสุด</a></li>
+        <li><a href="#" data-th="บทสัมภาษณ์นักเขียน" data-en="Author Interviews">🎤 บทสัมภาษณ์นักเขียน</a></li>
+        <li><a href="#" data-th="รีวิวหนังสือ" data-en="Book Reviews">📖 รีวิวหนังสือ</a></li>
+      </ul>
+    </aside>
+    <div class="main-content">
+      <div class="section-header">
+        <h2 data-th="📰 ข่าวสารและบทสัมภาษณ์" data-en="📰 News & Interviews">📰 ข่าวสารและบทสัมภาษณ์</h2>
+      </div>
+      <div id="newsGrid"></div>
+      <div class="pagination" style="margin-top:20px">
+        <button>«</button><button class="active">1</button><button>2</button><button>3</button><button>»</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+window.onDataReady = function() {
+  initComponents();
+  populateGenreModal();
+  const newsGrid = document.getElementById('newsGrid');
+  if (!newsGrid) return;
+  const newsData = [
+    {title_th:'10 หนังสือที่ต้องอ่านในปี 2026', title_en:'10 Must-Read Books of 2026', desc_th:'รวมหนังสือที่ได้รับการคัดเลือกจากผู้เชี่ยวชาญและนักอ่านทั่วโลก', desc_en:'A curated list from experts and readers worldwide', date:'10 เม.ย. 2569'},
+    {title_th:'บทสัมภาษณ์: ปราบดา หยุ่น กับนวนิยายเรื่องใหม่', title_en:'Interview: Prabda Yoon on His New Novel', desc_th:'นักเขียนชื่อดังเปิดใจเรื่องแรงบันดาลใจและกระบวนการเขียน', desc_en:'The famous author opens up about inspiration and writing process', date:'8 เม.ย. 2569'},
+    {title_th:'AI กำลังเปลี่ยนวงการหนังสืออย่างไร?', title_en:'How AI is Transforming the Book Industry', desc_th:'เจาะลึกว่าปัญญาประดิษฐ์มีบทบาทในการแนะนำหนังสือ การเขียน และการจัดพิมพ์อย่างไร', desc_en:'Exploring how AI plays a role in book recommendations, writing, and publishing', date:'5 เม.ย. 2569'},
+    {title_th:'รีวิว: "ชีวิตอันเหลือเชื่อของ..." โดย ภูมิภาค', title_en:'Review: "The Incredible Life of..." by Phumiphak', desc_th:'หนังสือที่ทำให้คุณหัวเราะและร้องไห้ในเวลาเดียวกัน', desc_en:'A book that makes you laugh and cry at the same time', date:'3 เม.ย. 2569'},
+    {title_th:'งานสัปดาห์หนังสือแห่งชาติ 2569', title_en:'National Book Week 2026', desc_th:'รวมไฮไลท์และโปรโมชันพิเศษจากงาน', desc_en:'Highlights and special promotions from the event', date:'1 เม.ย. 2569'}
+  ];
+  newsGrid.innerHTML = newsData.map(n => `<div class="news-card">
+    <div class="ph-cover placeholder-img" style="width:120px;height:80px;border-radius:8px;flex-shrink:0">📰</div>
+    <div><h4>${t(n,'title')}</h4><p>${t(n,'desc')}</p><div class="meta">${n.date}</div></div>
+  </div>`).join('');
+};
+</script>
+</body>
+</html>

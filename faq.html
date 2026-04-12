@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greed Route — คำถามที่พบบ่อย</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="faq">
+
+<main class="container">
+  <div class="page-layout no-sidebars">
+    <div class="main-content" style="max-width:700px;margin:0 auto">
+      <h2 style="margin-bottom:24px" data-th="❓ คำถามที่พบบ่อย" data-en="❓ Frequently Asked Questions">❓ คำถามที่พบบ่อย</h2>
+      <div id="faqList"></div>
+    </div>
+  </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+const faqData = [
+  {q_th:'ใช้เวลานานแค่ไหนในการรับคำแนะนำหนังสือ?', q_en:'How long does it take to receive book recommendations?', a_th:'ระบบจะเริ่มแนะนำหนังสือทันทีหลังจากคุณเลือกหมวดหมู่ที่ชื่นชอบ และจะยิ่งแม่นยำขึ้นเมื่อคุณให้คะแนนหนังสือมากขึ้น (แนะนำอย่างน้อย 20 เล่ม)', a_en:'The system starts recommending books immediately after you select your favorite genres, and becomes more accurate as you rate more books (recommended at least 20).'},
+  {q_th:'หากได้รับคำแนะนำที่ไม่ตรงใจ ควรทำอย่างไร?', q_en:'What should I do if I receive irrelevant recommendations?', a_th:'คุณสามารถกดปุ่ม "ไม่สนใจ" บนหนังสือที่ไม่ตรงใจ ระบบจะเรียนรู้และปรับปรุงคำแนะนำให้ดีขึ้นในครั้งต่อไป', a_en:'You can click the "Not Interested" button on irrelevant books. The system will learn and improve recommendations in the future.'},
+  {q_th:'ฉันสามารถตรวจสอบสถานะคำแนะนำหนังสือได้ที่ไหน?', q_en:'How can I check the status of my book recommendations?', a_th:'ไปที่เมนู "สำรวจ > แนะนำสำหรับคุณ" เพื่อดูคำแนะนำล่าสุดของคุณ', a_en:'Go to "Browse > Recommendations" to see your latest recommendations.'},
+  {q_th:'ฉันสามารถยกเลิกหรือลบหนังสือออกจากคอลเลกชันได้หรือไม่?', q_en:'Can I remove books from my collection?', a_th:'ได้ คุณสามารถลบหนังสือออกจากชั้นหนังสือได้ตลอดเวลาในหน้า "หนังสือของฉัน"', a_en:'Yes, you can remove books from your shelves anytime on the "My Books" page.'},
+  {q_th:'ติดต่อฝ่ายสนับสนุนได้อย่างไร?', q_en:'How can I contact customer support?', a_th:'คุณสามารถติดต่อเราได้ที่ team@greedroute.com หรือโทร +66 2 123 4567', a_en:'You can reach us at team@greedroute.com or call +66 2 123 4567'},
+  {q_th:'มีโปรโมชันหรือส่วนลดพิเศษสำหรับผู้ใช้ Greed Route หรือไม่?', q_en:'Are there special offers for Greed Route users?', a_th:'เรามีโปรโมชันพิเศษเป็นระยะ ๆ ติดตามได้ที่หน้าข่าวสารหรือสมัครรับจดหมายข่าว', a_en:'We have periodic special promotions. Follow our News page or subscribe to our newsletter.'},
+  {q_th:'Greed Route มั่นใจในคุณภาพคำแนะนำหนังสือได้อย่างไร?', q_en:'How does Greed Route ensure recommendation quality?', a_th:'เราใช้อัลกอริทึม Collaborative Filtering และ Content-Based Filtering ผสมผสานกัน พร้อมปรับปรุงจากฟีดแบ็กของผู้ใช้อย่างต่อเนื่อง', a_en:'We use a combination of Collaborative Filtering and Content-Based Filtering algorithms, continuously improved with user feedback.'}
+];
+
+window.onDataReady = function() {
+  initComponents();
+  populateGenreModal();
+  showGenreModalIfNeeded();
+  const lang = document.documentElement.lang || 'th';
+  const list = document.getElementById('faqList');
+  list.innerHTML = faqData.map(f => `
+    <div class="faq-item">
+      <div class="faq-question" data-th="${f.q_th}" data-en="${f.q_en}">${lang==='en'? f.q_en : f.q_th}</div>
+      <div class="faq-answer" data-th="${f.a_th}" data-en="${f.a_en}">${lang==='en'? f.a_en : f.a_th}</div>
+    </div>`).join('');
+
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+  });
+};
+</script>
+</body>
+</html>
