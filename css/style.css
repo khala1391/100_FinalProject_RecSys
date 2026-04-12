@@ -869,7 +869,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); color: var(--primary-dark); l
    MOBILE VIEW (Toggle)
    ============================ */
 body.mobile-view .header-inner {
-  height: 52px;
+  height: 56px;
   padding: 0 12px;
   flex-wrap: nowrap;
 }
@@ -879,19 +879,19 @@ body.mobile-view .nav { display: none !important; }
 body.mobile-view .hamburger { display: flex; }
 
 /* Compact header actions */
-body.mobile-view .header-actions { gap: 6px; }
+body.mobile-view .header-actions { gap: 8px; }
 body.mobile-view .header-actions .toggle-group { display: none; }
-body.mobile-view .header-actions .icon-btn { width: 28px; height: 28px; font-size: 0.85rem; }
-body.mobile-view .header-actions .icon-btn .badge { width: 14px; height: 14px; font-size: 0.55rem; top: -3px; right: -3px; }
+body.mobile-view .header-actions .icon-btn { width: 34px; height: 34px; font-size: 1rem; }
+body.mobile-view .header-actions .icon-btn .badge { width: 15px; height: 15px; font-size: 0.6rem; top: -2px; right: -2px; }
 /* Hide friends & messages icon on mobile, keep notification + profile */
 body.mobile-view .header-actions .icon-btn:nth-of-type(2),
 body.mobile-view .header-actions .icon-btn:nth-of-type(3) { display: none; }
-/* Compact search */
-body.mobile-view .search-box { padding: 4px 10px; }
-body.mobile-view .search-box input { width: 80px; font-size: 0.8rem; }
-/* Compact logo */
-body.mobile-view .logo img { height: 30px; }
-body.mobile-view .logo-text { font-size: 1.1rem; }
+/* Search */
+body.mobile-view .search-box { padding: 6px 12px; }
+body.mobile-view .search-box input { width: 90px; font-size: 0.88rem; }
+/* Logo */
+body.mobile-view .logo img { height: 32px; }
+body.mobile-view .logo-text { font-size: 1.15rem; }
 
 /* --- Mobile Nav Overlay --- */
 .mobile-nav {
@@ -912,11 +912,11 @@ body.mobile-view .logo-text { font-size: 1.1rem; }
   display: flex;
 }
 .mobile-nav a {
-  padding: 12px 16px;
+  padding: 14px 16px;
   color: var(--text);
   text-decoration: none;
   border-radius: var(--radius-sm);
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 .mobile-nav a:hover {
   background: var(--primary-lightest);
@@ -924,7 +924,7 @@ body.mobile-view .logo-text { font-size: 1.1rem; }
 }
 .mobile-nav .sub-item {
   padding-left: 40px;
-  font-size: 0.85rem;
+  font-size: 0.92rem;
 }
 
 body.mobile-view .mobile-nav {
@@ -936,30 +936,34 @@ body.mobile-view .mobile-nav.open {
 
 body.mobile-view .page-layout {
   grid-template-columns: 1fr !important;
-  padding: 8px 0;
-  gap: 8px;
+  padding: 10px 0;
+  gap: 10px;
 }
-body.mobile-view .container { padding: 0 10px; }
+body.mobile-view .container { padding: 0 14px; }
 body.mobile-view .sidebar { display: none; }
 body.mobile-view .sidebar.mobile-show { display: block; }
 
 body.mobile-view .book-grid {
   grid-template-columns: repeat(2, 1fr) !important;
-  gap: 10px;
+  gap: 12px;
 }
-body.mobile-view .book-card { font-size: 0.8rem; }
-body.mobile-view .book-card .book-title { font-size: 0.78rem; }
-body.mobile-view .book-card .book-author { font-size: 0.68rem; }
-body.mobile-view .book-card .shelf-dropdown .shelf-btn { font-size: 0.65rem; padding: 3px 6px; }
+body.mobile-view .book-card { font-size: 0.88rem; }
+body.mobile-view .book-card .book-title { font-size: 0.88rem; }
+body.mobile-view .book-card .book-author { font-size: 0.8rem; }
+body.mobile-view .book-card .star-rating .star { font-size: 1rem; }
+body.mobile-view .book-card .shelf-dropdown .shelf-btn { font-size: 0.78rem; padding: 4px 8px; }
 
 /* Scrollable table wrapper for mobile */
 body.mobile-view .book-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
 body.mobile-view .book-table th,
-body.mobile-view .book-table td { font-size: 0.75rem; padding: 8px; }
+body.mobile-view .book-table td { font-size: 0.85rem; padding: 10px; }
 
 body.mobile-view .team-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+body.mobile-view .team-member h4 { font-size: 0.95rem; }
+body.mobile-view .team-member .position { font-size: 0.82rem; }
+body.mobile-view .team-member .bio { font-size: 0.8rem; }
 body.mobile-view .genre-grid { grid-template-columns: 1fr; }
-body.mobile-view .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+body.mobile-view .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
 body.mobile-view .awards-stats { flex-wrap: wrap; gap: 16px; }
 
 /* About hero responsive in mobile */
@@ -967,27 +971,34 @@ body.mobile-view .about-hero { padding: 28px 16px; }
 body.mobile-view .about-hero-logo { gap: 12px; }
 body.mobile-view .hero-logo-img { width: 56px; height: 56px; }
 body.mobile-view .hero-logo-text h1 { font-size: 1.6rem; }
-body.mobile-view .hero-logo-annotation { font-size: 0.75rem; }
-body.mobile-view .about-hero .motto { font-size: 0.85rem; }
-body.mobile-view .about-content { font-size: 0.88rem; }
+body.mobile-view .hero-logo-annotation { font-size: 0.8rem; }
+body.mobile-view .about-hero .motto { font-size: 0.9rem; }
+body.mobile-view .about-content { font-size: 0.9rem; }
 
 /* Section headers */
-body.mobile-view .section-header h2 { font-size: 1.1rem; }
-body.mobile-view h2 { font-size: 1.15rem; }
+body.mobile-view .section-header h2 { font-size: 1.15rem; }
+body.mobile-view h2 { font-size: 1.2rem; }
+body.mobile-view h3 { font-size: 1.05rem; }
 
 /* Pagination */
-body.mobile-view .pagination button { width: 30px; height: 30px; font-size: 0.75rem; }
+body.mobile-view .pagination button { width: 34px; height: 34px; font-size: 0.85rem; }
 
 /* News card responsive */
-body.mobile-view .news-card { gap: 10px; padding: 10px; }
+body.mobile-view .news-card { gap: 12px; padding: 12px; }
 body.mobile-view .news-card .ph-cover,
-body.mobile-view .news-card img { width: 60px !important; height: 60px !important; min-width: 60px; }
-body.mobile-view .news-card h4 { font-size: 0.85rem; }
-body.mobile-view .news-card p { font-size: 0.75rem; }
+body.mobile-view .news-card img { width: 64px !important; height: 64px !important; min-width: 64px; }
+body.mobile-view .news-card h4 { font-size: 0.92rem; }
+body.mobile-view .news-card p { font-size: 0.85rem; }
+body.mobile-view .news-card .meta { font-size: 0.78rem; }
 
 /* Tabs responsive */
-body.mobile-view .tabs { gap: 0; overflow-x: auto; }
-body.mobile-view .tab { padding: 10px 12px; font-size: 0.8rem; white-space: nowrap; }
+body.mobile-view .tabs { gap: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+body.mobile-view .tab { padding: 10px 14px; font-size: 0.88rem; white-space: nowrap; }
+
+/* FAQ & Contact responsive */
+body.mobile-view .faq-question { font-size: 0.92rem; }
+body.mobile-view .faq-answer { font-size: 0.88rem; }
+body.mobile-view .contact-info { font-size: 0.9rem; }
 
 /* bottom nav for mobile */
 body.mobile-view .bottom-nav {
@@ -997,7 +1008,7 @@ body.mobile-view .bottom-nav {
   background: var(--card-bg);
   box-shadow: 0 -2px 12px var(--shadow);
   z-index: 1000;
-  padding: 8px 0;
+  padding: 6px 0 env(safe-area-inset-bottom, 4px);
   justify-content: space-around;
 }
 .bottom-nav { display: none; }
@@ -1008,11 +1019,20 @@ body.mobile-view .bottom-nav a {
   gap: 2px;
   padding: 4px 8px;
   color: var(--text-muted);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
+  text-decoration: none;
 }
 body.mobile-view .bottom-nav a.active { color: var(--primary); }
-body.mobile-view .bottom-nav .nav-icon { font-size: 1.2rem; }
-body.mobile-view .footer { margin-bottom: 110px; }
+body.mobile-view .bottom-nav .nav-icon { font-size: 1.3rem; }
+
+/* Footer spacing for fixed bars */
+body.mobile-view .footer { margin-bottom: 120px; }
+body.mobile-view .footer-grid { padding: 0 14px; }
+body.mobile-view .footer h4 { font-size: 0.85rem; }
+body.mobile-view .footer a { font-size: 0.88rem; }
+body.mobile-view .footer ul li { margin-bottom: 8px; }
+body.mobile-view .footer-bottom { font-size: 0.78rem; }
+body.mobile-view .footer-social a { width: 38px; height: 38px; font-size: 1rem; }
 
 /* --- Mobile Toolbar (theme / lang / desktop) --- */
 .mobile-toolbar {
@@ -1026,7 +1046,7 @@ body.mobile-view .mobile-toolbar {
   background: var(--card-bg);
   border-top: 1px solid var(--border);
   z-index: 1000;
-  padding: 6px 12px;
+  padding: 8px 14px;
   justify-content: space-around;
   align-items: center;
   gap: 8px;
@@ -1035,14 +1055,14 @@ body.mobile-view .mobile-toolbar {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.8rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
 }
 .mobile-toolbar-item > span:first-child {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 .mobile-toolbar-label {
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   min-width: 24px;
 }
@@ -1070,8 +1090,8 @@ body.mobile-view .mobile-toolbar {
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
-  padding: 4px 12px;
-  font-size: 0.75rem;
+  padding: 5px 14px;
+  font-size: 0.82rem;
   cursor: pointer;
   font-family: var(--font);
   transition: var(--transition);
@@ -1089,23 +1109,29 @@ body.mobile-view .mobile-toolbar {
 }
 
 @media (max-width: 768px) {
-  .header-inner { height: auto; flex-wrap: wrap; padding: 8px 12px; }
+  .header-inner { height: 56px; flex-wrap: nowrap; padding: 0 12px; }
   .nav { display: none; }
   .hamburger { display: flex; }
   .page-layout, .page-layout.no-left, .page-layout.no-right { grid-template-columns: 1fr; }
   .sidebar { display: none; }
-  .book-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .container { padding: 0 14px; }
+  .book-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
+  .book-card .book-title { font-size: 0.88rem; }
+  .book-card .book-author { font-size: 0.8rem; }
   .team-grid { grid-template-columns: repeat(2, 1fr); }
   .genre-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: repeat(2, 1fr); }
-  .search-box input { width: 120px; }
-  .container { padding: 0 10px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; padding: 0 14px; }
+  .search-box input { width: 100px; }
   .book-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
   .about-hero { padding: 28px 16px; }
   .about-hero-logo { gap: 12px; }
   .hero-logo-img { width: 56px; height: 56px; }
   .hero-logo-text h1 { font-size: 1.6rem; }
   .about-hero .motto { font-size: 0.9rem; }
+  h2 { font-size: 1.2rem; }
+  .news-card h4 { font-size: 0.92rem; }
+  .news-card p { font-size: 0.85rem; }
+  .tab { padding: 10px 14px; font-size: 0.88rem; }
 }
 
 @media (max-width: 480px) {
@@ -1113,9 +1139,13 @@ body.mobile-view .mobile-toolbar {
   .logo-text { font-size: 1.1rem; }
   .book-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .team-grid { grid-template-columns: 1fr; }
-  .search-box input { width: 80px; font-size: 0.8rem; }
+  .search-box input { width: 80px; font-size: 0.85rem; }
   .header-actions .icon-btn:nth-of-type(2),
   .header-actions .icon-btn:nth-of-type(3) { display: none; }
+  .header-actions { gap: 6px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+  .news-card .ph-cover,
+  .news-card img { width: 64px !important; height: 64px !important; }
 }
 
 /* --- Loading Placeholder --- */
