@@ -84,26 +84,64 @@ window.onDataReady = function() {
   const table = document.getElementById('myBooksTable');
   if (!table || !books.length) return;
   const dates = ['12 เม.ย.','8 เม.ย.','1 เม.ย.','25 มี.ค.','20 มี.ค.','15 มี.ค.','10 มี.ค.','1 มี.ค.','20 ก.พ.','15 ก.พ.'];
-  table.innerHTML = books.slice(0,10).map((b,i) => {
-    const coverSrc = b.local_cover || b.cover_url || '';
-    const coverHTML = coverSrc
-      ? `<img src="${coverSrc}" style="width:40px;border-radius:4px" onerror="this.outerHTML='<div class=\\'ph-cover placeholder-img\\' style=\\'width:40px;height:60px;border-radius:4px;font-size:.5rem\\'>📕</div>'">`
-      : `<div class="ph-cover placeholder-img" style="width:40px;height:60px;border-radius:4px;font-size:.5rem">📕</div>`;
-    const bookId = b.id || b.title_en || t(b,'title');
-    const myRating = getUserRating(bookId);
-    const myStarsHTML = [1,2,3,4,5].map(s =>
-      `<span class="star${s <= myRating ? ' filled' : ''}" data-value="${s}" data-book="${encodeURIComponent(bookId)}">★</span>`
-    ).join('');
-    return `<tr>
-      <td class="cover-cell">${coverHTML}</td>
-      <td><strong>${t(b,'title')}</strong></td>
-      <td>${b.author||''}</td>
-      <td>⭐ ${b.rating||''}</td>
-      <td><span class="star-rating" data-book="${encodeURIComponent(bookId)}" style="font-size:.8rem">${myStarsHTML}</span></td>
-      <td>${shelfDropdownHTML(bookId)}</td>
-      <td style="font-size:.8rem;color:var(--text-muted)">${dates[i]}</td>
-    </tr>`;
-  }).join('');
+  // Desktop: table rows. Mobile: card layout.
+  const isMobile = document.body.classList.contains('mobile-view') || window.innerWidth <= 768;
+  if (isMobile) {
+    // Render as card list
+    const container = table.closest('.main-content');
+    const tableEl = table.closest('.book-table');
+    const cardList = document.createElement('div');
+    cardList.className = 'mybooks-card-list';
+    cardList.innerHTML = books.slice(0,10).map((b,i) => {
+      const coverSrc = b.local_cover || b.cover_url || '';
+      const coverHTML = coverSrc
+        ? `<img src="${coverSrc}" class="mybook-card-cover" onerror="this.outerHTML='<div class=\\'mybook-card-cover ph-cover placeholder-img\\'>📕</div>'">`
+        : `<div class="mybook-card-cover ph-cover placeholder-img">📕</div>`;
+      const bookId = b.id || b.title_en || t(b,'title');
+      const myRating = getUserRating(bookId);
+      const myStarsHTML = [1,2,3,4,5].map(s =>
+        `<span class="star${s <= myRating ? ' filled' : ''}" data-value="${s}" data-book="${encodeURIComponent(bookId)}">★</span>`
+      ).join('');
+      return `<div class="mybook-card">
+        ${coverHTML}
+        <div class="mybook-card-info">
+          <div class="mybook-card-title">${t(b,'title')}</div>
+          <div class="mybook-card-author">${b.author||''}</div>
+          <div class="mybook-card-row">
+            <span>⭐ ${b.rating||''}</span>
+            <span class="star-rating" data-book="${encodeURIComponent(bookId)}">${myStarsHTML}</span>
+          </div>
+          <div class="mybook-card-row">
+            ${shelfDropdownHTML(bookId)}
+            <span class="mybook-card-date">${dates[i]}</span>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    tableEl.style.display = 'none';
+    tableEl.after(cardList);
+  } else {
+    table.innerHTML = books.slice(0,10).map((b,i) => {
+      const coverSrc = b.local_cover || b.cover_url || '';
+      const coverHTML = coverSrc
+        ? `<img src="${coverSrc}" style="width:40px;border-radius:4px" onerror="this.outerHTML='<div class=\\'ph-cover placeholder-img\\' style=\\'width:40px;height:60px;border-radius:4px;font-size:.5rem\\'>📕</div>'">`
+        : `<div class="ph-cover placeholder-img" style="width:40px;height:60px;border-radius:4px;font-size:.5rem">📕</div>`;
+      const bookId = b.id || b.title_en || t(b,'title');
+      const myRating = getUserRating(bookId);
+      const myStarsHTML = [1,2,3,4,5].map(s =>
+        `<span class="star${s <= myRating ? ' filled' : ''}" data-value="${s}" data-book="${encodeURIComponent(bookId)}">★</span>`
+      ).join('');
+      return `<tr>
+        <td class="cover-cell">${coverHTML}</td>
+        <td><strong>${t(b,'title')}</strong></td>
+        <td>${b.author||''}</td>
+        <td>⭐ ${b.rating||''}</td>
+        <td><span class="star-rating" data-book="${encodeURIComponent(bookId)}" style="font-size:.8rem">${myStarsHTML}</span></td>
+        <td>${shelfDropdownHTML(bookId)}</td>
+        <td style="font-size:.8rem;color:var(--text-muted)">${dates[i]}</td>
+      </tr>`;
+    }).join('');
+  }
 };
 </script>
 </body>

@@ -120,18 +120,36 @@ function injectMobileNav() {
   nav.innerHTML = `
     <a href="index.html" data-th="🏠 หน้าแรก" data-en="🏠 Home">🏠 หน้าแรก</a>
     <a href="mybooks.html" data-th="📚 หนังสือของฉัน" data-en="📚 My Books">📚 หนังสือของฉัน</a>
-    <a href="browse-rec.html" class="sub-item" data-th="⭐ แนะนำสำหรับคุณ" data-en="⭐ Recommendations">⭐ แนะนำสำหรับคุณ</a>
-    <a href="browse-choice.html" class="sub-item" data-th="🏆 รางวัล Choice Awards" data-en="🏆 Choice Awards">🏆 รางวัล Choice Awards</a>
-    <a href="browse-new.html" class="sub-item" data-th="🆕 หนังสือใหม่" data-en="🆕 New Releases">🆕 หนังสือใหม่</a>
-    <a href="browse-list.html" class="sub-item" data-th="📋 รายการหนังสือ" data-en="📋 Lists">📋 รายการหนังสือ</a>
-    <a href="browse-explore.html" class="sub-item" data-th="🔭 สำรวจเพิ่มเติม" data-en="🔭 Explore">🔭 สำรวจเพิ่มเติม</a>
-    <a href="browse-news.html" class="sub-item" data-th="📰 ข่าวสารและบทสัมภาษณ์" data-en="📰 News &amp; Interviews">📰 ข่าวสารและบทสัมภาษณ์</a>
-    <a href="community-groups.html" class="sub-item" data-th="👥 กลุ่ม" data-en="👥 Groups">👥 กลุ่ม</a>
-    <a href="community-discuss.html" class="sub-item" data-th="💬 สนทนา" data-en="💬 Discussions">💬 สนทนา</a>
-    <a href="community-quotes.html" class="sub-item" data-th="💡 คำคม" data-en="💡 Quotes">💡 คำคม</a>
-    <a href="about.html" data-th="ℹ️ เกี่ยวกับเรา" data-en="ℹ️ About Us">ℹ️ เกี่ยวกับเรา</a>
-    <a href="contact.html" data-th="📞 ติดต่อ" data-en="📞 Contact">📞 ติดต่อ</a>
-    <a href="faq.html" data-th="❓ คำถามที่พบบ่อย" data-en="❓ FAQ">❓ คำถามที่พบบ่อย</a>
+
+    <div class="mobile-nav-group">
+      <div class="mobile-nav-group-title" data-th="📖 สำรวจ" data-en="📖 Browse">📖 ${lang==='th'?'สำรวจ':'Browse'}</div>
+      <div class="mobile-nav-grid">
+        <a href="browse-rec.html" data-th="⭐ แนะนำ" data-en="⭐ Recommendations">⭐ ${lang==='th'?'แนะนำ':'Recommendations'}</a>
+        <a href="browse-choice.html" data-th="🏆 Choice Awards" data-en="🏆 Choice Awards">🏆 Choice Awards</a>
+        <a href="browse-new.html" data-th="🆕 หนังสือใหม่" data-en="🆕 New Releases">🆕 ${lang==='th'?'หนังสือใหม่':'New Releases'}</a>
+        <a href="browse-list.html" data-th="📋 รายการ" data-en="📋 Lists">📋 ${lang==='th'?'รายการ':'Lists'}</a>
+        <a href="browse-explore.html" data-th="🔭 สำรวจ" data-en="🔭 Explore">🔭 ${lang==='th'?'สำรวจ':'Explore'}</a>
+        <a href="browse-news.html" data-th="📰 ข่าวสาร" data-en="📰 News">📰 ${lang==='th'?'ข่าวสาร':'News'}</a>
+      </div>
+    </div>
+
+    <div class="mobile-nav-group">
+      <div class="mobile-nav-group-title" data-th="💬 ชุมชน" data-en="💬 Community">💬 ${lang==='th'?'ชุมชน':'Community'}</div>
+      <div class="mobile-nav-grid">
+        <a href="community-groups.html" data-th="👥 กลุ่ม" data-en="👥 Groups">👥 ${lang==='th'?'กลุ่ม':'Groups'}</a>
+        <a href="community-discuss.html" data-th="💬 สนทนา" data-en="💬 Discussions">💬 ${lang==='th'?'สนทนา':'Discussions'}</a>
+        <a href="community-quotes.html" data-th="💡 คำคม" data-en="💡 Quotes">💡 ${lang==='th'?'คำคม':'Quotes'}</a>
+      </div>
+    </div>
+
+    <div class="mobile-nav-group">
+      <div class="mobile-nav-group-title" data-th="ℹ️ อื่น ๆ" data-en="ℹ️ More">ℹ️ ${lang==='th'?'อื่น ๆ':'More'}</div>
+      <div class="mobile-nav-grid">
+        <a href="about.html" data-th="ℹ️ เกี่ยวกับ" data-en="ℹ️ About">ℹ️ ${lang==='th'?'เกี่ยวกับ':'About'}</a>
+        <a href="contact.html" data-th="📞 ติดต่อ" data-en="📞 Contact">📞 ${lang==='th'?'ติดต่อ':'Contact'}</a>
+        <a href="faq.html" data-th="❓ FAQ" data-en="❓ FAQ">❓ FAQ</a>
+      </div>
+    </div>
   `;
   document.body.querySelector('.header').after(nav);
 }
