@@ -40,21 +40,27 @@
 
     <!-- Main Content -->
     <div class="main-content">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px">
         <h2 data-th="หนังสือของฉัน" data-en="My Books">หนังสือของฉัน</h2>
         <div style="display:flex;gap:8px;align-items:center">
           <div class="search-box" style="background:var(--secondary-bg)">
             <span>🔍</span>
-            <input type="text" placeholder="ค้นหาในคอลเลกชัน..." style="color:var(--text);width:160px">
-          </div>
-          <div class="view-toggle">
-            <button class="active" title="Grid">▦</button>
-            <button title="List">≡</button>
+            <input type="text" id="mybooksSearch" placeholder="ค้นหาในคอลเลกชัน..." style="color:var(--text);width:160px">
           </div>
         </div>
       </div>
 
-      <table class="book-table">
+      <!-- Mobile shelf filter (replaces sidebar) -->
+      <div class="mobile-shelf-filter">
+        <button class="shelf-chip active" data-shelf="all" data-th="ทั้งหมด" data-en="All">ทั้งหมด</button>
+        <button class="shelf-chip" data-shelf="to-read" data-th="📖 อยากอ่าน" data-en="📖 To Read">📖 อยากอ่าน</button>
+        <button class="shelf-chip" data-shelf="currently-reading" data-th="📚 กำลังอ่าน" data-en="📚 Reading">📚 กำลังอ่าน</button>
+        <button class="shelf-chip" data-shelf="read" data-th="✅ อ่านแล้ว" data-en="✅ Read">✅ อ่านแล้ว</button>
+        <button class="shelf-chip" data-shelf="did-not-finish" data-th="🚫 ไม่จบ" data-en="🚫 DNF">🚫 ไม่จบ</button>
+      </div>
+
+      <!-- Desktop: table view -->
+      <table class="book-table mybooks-desktop-only">
         <thead>
           <tr>
             <th data-th="ปก" data-en="Cover">ปก</th>
@@ -68,6 +74,10 @@
         </thead>
         <tbody id="myBooksTable"></tbody>
       </table>
+
+      <!-- Mobile: card view -->
+      <div class="mybooks-card-list mybooks-mobile-only" id="myBooksCards"></div>
+
       <div class="pagination" style="margin-top:20px">
         <button>«</button><button class="active">1</button><button>2</button><button>3</button><button>»</button>
       </div>
@@ -82,45 +92,12 @@ window.onDataReady = function() {
   initComponents();
   populateGenreModal();
   const table = document.getElementById('myBooksTable');
-  if (!table || !books.length) return;
+  const cardContainer = document.getElementById('myBooksCards');
+  if (!books.length) return;
   const dates = ['12 เม.ย.','8 เม.ย.','1 เม.ย.','25 มี.ค.','20 มี.ค.','15 มี.ค.','10 มี.ค.','1 มี.ค.','20 ก.พ.','15 ก.พ.'];
-  // Desktop: table rows. Mobile: card layout.
-  const isMobile = document.body.classList.contains('mobile-view') || window.innerWidth <= 768;
-  if (isMobile) {
-    // Render as card list
-    const container = table.closest('.main-content');
-    const tableEl = table.closest('.book-table');
-    const cardList = document.createElement('div');
-    cardList.className = 'mybooks-card-list';
-    cardList.innerHTML = books.slice(0,10).map((b,i) => {
-      const coverSrc = b.local_cover || b.cover_url || '';
-      const coverHTML = coverSrc
-        ? `<img src="${coverSrc}" class="mybook-card-cover" onerror="this.outerHTML='<div class=\\'mybook-card-cover ph-cover placeholder-img\\'>📕</div>'">`
-        : `<div class="mybook-card-cover ph-cover placeholder-img">📕</div>`;
-      const bookId = b.id || b.title_en || t(b,'title');
-      const myRating = getUserRating(bookId);
-      const myStarsHTML = [1,2,3,4,5].map(s =>
-        `<span class="star${s <= myRating ? ' filled' : ''}" data-value="${s}" data-book="${encodeURIComponent(bookId)}">★</span>`
-      ).join('');
-      return `<div class="mybook-card">
-        ${coverHTML}
-        <div class="mybook-card-info">
-          <div class="mybook-card-title">${t(b,'title')}</div>
-          <div class="mybook-card-author">${b.author||''}</div>
-          <div class="mybook-card-row">
-            <span>⭐ ${b.rating||''}</span>
-            <span class="star-rating" data-book="${encodeURIComponent(bookId)}">${myStarsHTML}</span>
-          </div>
-          <div class="mybook-card-row">
-            ${shelfDropdownHTML(bookId)}
-            <span class="mybook-card-date">${dates[i]}</span>
-          </div>
-        </div>
-      </div>`;
-    }).join('');
-    tableEl.style.display = 'none';
-    tableEl.after(cardList);
-  } else {
+
+  // Always render both: CSS controls which is visible
+  if (table) {
     table.innerHTML = books.slice(0,10).map((b,i) => {
       const coverSrc = b.local_cover || b.cover_url || '';
       const coverHTML = coverSrc
@@ -142,6 +119,47 @@ window.onDataReady = function() {
       </tr>`;
     }).join('');
   }
+
+  if (cardContainer) {
+    cardContainer.innerHTML = books.slice(0,10).map((b,i) => {
+      const coverSrc = b.local_cover || b.cover_url || '';
+      const coverHTML = coverSrc
+        ? `<img src="${coverSrc}" class="mybook-card-cover" onerror="this.outerHTML='<div class=\\'mybook-card-cover ph-cover placeholder-img\\'>📕</div>'">`
+        : `<div class="mybook-card-cover ph-cover placeholder-img">📕</div>`;
+      const bookId = b.id || b.title_en || t(b,'title');
+      const myRating = getUserRating(bookId);
+      const shelf = getUserShelf(bookId);
+      const shelfObj = shelfOptions.find(s => s.key === shelf) || shelfOptions[0];
+      const shelfLabel = shelfObj.icon + ' ' + (lang==='th'?shelfObj.th:shelfObj.en);
+      const myStarsHTML = [1,2,3,4,5].map(s =>
+        `<span class="star${s <= myRating ? ' filled' : ''}" data-value="${s}" data-book="${encodeURIComponent(bookId)}">★</span>`
+      ).join('');
+      return `<div class="mybook-card">
+        ${coverHTML}
+        <div class="mybook-card-info">
+          <div class="mybook-card-title">${t(b,'title')}</div>
+          <div class="mybook-card-author">${b.author||''}</div>
+          <div class="mybook-card-meta">
+            <span class="mybook-card-rating">⭐ ${b.rating||''}</span>
+            <span class="mybook-card-date">${dates[i]}</span>
+          </div>
+          <div class="mybook-card-actions">
+            <span class="star-rating" data-book="${encodeURIComponent(bookId)}">${myStarsHTML}</span>
+            ${shelfDropdownHTML(bookId)}
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Shelf chip filter
+  document.querySelectorAll('.shelf-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.shelf-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      // Filter logic placeholder — visual only for mockup
+    });
+  });
 };
 </script>
 </body>

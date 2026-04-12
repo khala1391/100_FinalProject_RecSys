@@ -467,13 +467,29 @@ function initLanguage() {
   };
 }
 
-// --- Mobile Toggle ---
+// --- Device Detection & Mobile Toggle ---
+function detectMobileDevice() {
+  const ua = navigator.userAgent || '';
+  const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const mobileUA = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+  const narrowScreen = window.innerWidth <= 768;
+  return (mobileUA && hasTouchScreen) || (narrowScreen && hasTouchScreen);
+}
+
 function initMobile() {
   const toggle = $('#mobileToggle');
   const hamburger = $('#hamburgerBtn');
   if (toggle) {
     const savedMobile = localStorage.getItem('gr_mobile');
-    if (savedMobile === 'true') { document.body.classList.add('mobile-view'); toggle.checked = true; }
+    let isMobile;
+    if (savedMobile === null) {
+      // First visit: auto-detect device
+      isMobile = detectMobileDevice();
+      localStorage.setItem('gr_mobile', isMobile);
+    } else {
+      isMobile = savedMobile === 'true';
+    }
+    if (isMobile) { document.body.classList.add('mobile-view'); toggle.checked = true; }
     toggle.onchange = () => {
       document.body.classList.toggle('mobile-view', toggle.checked);
       localStorage.setItem('gr_mobile', toggle.checked);
