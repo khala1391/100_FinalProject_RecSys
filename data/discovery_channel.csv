@@ -1,0 +1,9 @@
+discovery_channel_id,channel_name
+1,rec_collaborative
+2,rec_content
+3,rec_popular
+4,search
+5,browse
+6,store_page
+7,publisher_page
+8,direct

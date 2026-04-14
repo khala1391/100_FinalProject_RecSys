@@ -10,6 +10,7 @@
 prompt/
 pdf/
 
+*.ipynb
 *.lnk
 *.ini
 
