@@ -91,3 +91,121 @@
 - `data/genres.json` — NEW: genres only
 - `html/index.html` — MODIFIED: JSON loading, mobile nav, touch dropdowns
 - `html/css/style.css` — MODIFIED: mobile nav visible, responsive nav layout
+
+---
+
+## Revision 03 — Mobile Bottom Nav Redesign, Book Detail Page, Unified Card View
+
+### Changes
+
+#### 1. Bottom Nav Submenu Panels (Mobile)
+- Redesigned bottom nav: 5 items — Home, Books, For You, Community, More
+- "For You" (แนะนำ) opens submenu panel with 6 browse page links (Recommendations, Choice Awards, New Releases, Lists, Explore, News)
+- "Community" (ชุมชน) opens submenu panel with 3 community page links (Groups, Discussions, Quotes)
+- "More" (เพิ่มเติม) opens panel with theme/language/desktop toggles + footer content (Contact, About, Terms, Privacy, FAQ, social media, app links)
+- Panels slide up from bottom nav with close button and background click dismiss
+- All toggles in More panel sync with header toggles
+
+#### 2. Mobile Toolbar Removed
+- Old mobile toolbar (theme/lang/desktop toggles bar above bottom nav) deprecated — `injectMobileToolbar()` is now a no-op
+- All toggle functionality moved to More panel
+- CSS: `.mobile-toolbar` set to `display:none!important`
+
+#### 3. Desktop My Books — Unified Card View
+- Replaced desktop table view (`<table class="book-table mybooks-desktop-only">`) with card-style layout
+- Both desktop and mobile now use the same `.mybooks-card-list` / `.mybook-card` layout
+- Removed `mybooks-desktop-only` / `mybooks-mobile-only` distinction
+- Cards show: cover (linked), title (linked), author, average rating, date, interactive star rating, shelf dropdown
+
+#### 4. Book Detail Page (`book-detail.html`)
+- New page created with `data-page="book-detail"`
+- Loads book by URL param: `book-detail.html?id=<bookId>`
+- Desktop layout: cover + actions (left column) | info (right column)
+- Mobile layout: stacked (cover top, info below)
+- Sections: cover image, shelf dropdown, buy button, title, author, star rating, genre tags, description (with show more/less toggle), community reviews (mock), similar books grid
+- All book cards now link to book-detail.html
+
+#### 5. Book Card Links
+- `bookCardHTML()` updated: cover image and title now link to `book-detail.html?id=<bookId>`
+- Uses `book.id || book.book_id` for ID resolution
+
+### Output files (new/modified)
+- `js/components.js` — MODIFIED: new bottom nav with panels, deprecated mobile toolbar, bookCardHTML links, initTheme sync
+- `css/style.css` — MODIFIED: new panel styles, book detail page styles, unified mybook card styles, hidden mobile toolbar
+- `mybooks.html` — MODIFIED: removed desktop table, unified card view
+- `book-detail.html` — NEW: book detail page with responsive layout
+
+---
+
+## Revision 04 — More Panel Redesign, Footer Hidden, Review System, Star Colors
+
+### Changes
+
+#### 1. More Panel Redesign (Mobile)
+- Merged all content into a single unified panel with icon-grid sections
+- Sections: Browse (6 icons), Community (3 icons), About & Links (5 icons)
+- Compact settings row with theme/lang toggles and desktop switch
+- Social links + app links row at the bottom
+- Uses same icon-grid design as Browse submenu for visual consistency
+- Minimizes scrolling — all options visible in one view
+
+#### 2. Footer Hidden in Mobile
+- `body.mobile-view .footer { display: none; }` — footer no longer shows in mobile
+- All footer content (contact, about, terms, privacy, social, apps, FAQ) is accessible via the More panel
+- Removed dead mobile footer CSS rules
+- Added `body.mobile-view main { padding-bottom: 64px; }` for bottom nav clearance
+
+#### 3. Review System on Book Detail Page
+- Added review toggle button (💬) to show/hide reviews section
+- Reviews section starts collapsed for cleaner UI
+- Added "Write a Review" button (✏️) that opens a review modal popup
+- Review modal includes: interactive star rating with labels, textarea with char count, submit/cancel buttons
+- Submitted reviews saved to localStorage (`gr_reviews`) and appear in review list
+- Review modal (`injectReviewModal()`) added to shared components — available on all pages
+
+#### 4. Star Rating Colors Fixed
+- `.review-stars` now uses `var(--star)` instead of `var(--accent-gold)` — matches interactive star color
+- Added `--accent-gold: #ffcf3f` to CSS variables (was previously undefined but referenced)
+
+#### 5. Shelf Button Consistency
+- Book detail page uses same `shelfDropdownHTML()` as all other pages — fully interactive
+- Same dropdown behavior, same styling, same localStorage persistence
+
+### Output files (modified)
+- `js/components.js` — MODIFIED: redesigned More panel as unified icon-grid, added review modal system
+- `css/style.css` — MODIFIED: new More panel grid styles, hidden footer in mobile, review modal/toggle CSS, accent-gold variable
+- `book-detail.html` — MODIFIED: review toggle button, review section collapse, write review button
+
+---
+
+## Revision 05 — More Panel Cleanup, Toggle Visibility, Desktop Sticky Sidebar
+
+### Changes
+
+#### 1. More Panel — Removed Community Section
+- Removed `ชุมชน` (Community) section from the More panel in mobile bottom nav
+- Community content is already accessible via the dedicated Community bottom-nav button
+- Now only 2 sections: Browse (6 icons) and About & Links (6 icons — added Careers)
+- Reduces scrolling and simplifies the More panel
+
+#### 2. More Panel — Fixed 3-Column Grid
+- Changed `grid-template-columns` from `repeat(auto-fill, minmax(60px, 1fr))` to `repeat(3, 1fr)`
+- Ensures consistent 3 items per row as specified
+
+#### 3. Toggle Button Visibility in Settings Row
+- Added visible border and background for toggle switches in More panel settings row
+- `.more-settings-item .toggle-slider` now has `background: var(--border)` and `border: 2px solid var(--text-muted)`
+- Checked state uses `background: var(--primary-light)` and `border-color: var(--primary)` for clear visibility
+
+#### 4. Desktop Book Detail — Sticky Sidebar (Goodreads Pattern)
+- Added `position: sticky; top: 80px; align-self: start` to `.book-detail-cover-col`
+- Left column (cover + actions) now sticks while scrolling, following the Goodreads layout pattern
+- Disabled sticky in mobile view (`position: static`) to avoid layout issues
+
+#### 5. Shelf Button — Already Consistent
+- Verified `book-detail.html` already uses `shelfDropdownHTML(bookId)` which generates the same interactive shelf button (`📖 อยากอ่าน ▾`) as all other pages
+- No changes needed — already consistent
+
+### Output files (modified)
+- `js/components.js` — MODIFIED: removed Community section from More panel
+- `css/style.css` — MODIFIED: 3-column grid, toggle visibility, sticky sidebar, mobile static sidebar

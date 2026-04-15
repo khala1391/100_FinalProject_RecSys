@@ -26,7 +26,8 @@ const pageFiles = {
   'community-quotes': 'community-quotes.html',
   'about': 'about.html',
   'contact': 'contact.html',
-  'faq': 'faq.html'
+  'faq': 'faq.html',
+  'book-detail': 'book-detail.html'
 };
 
 function pageHref(page) {
@@ -159,56 +160,285 @@ function injectBottomNav() {
   const nav = document.createElement('div');
   nav.className = 'bottom-nav';
   const items = [
-    {page:'home', icon:'🏠', th:'หน้าแรก', en:'Home'},
-    {page:'mybooks', icon:'📚', th:'หนังสือ', en:'Books'},
-    {page:'browse-rec', icon:'⭐', th:'แนะนำ', en:'For You'},
-    {page:'community-discuss', icon:'💬', th:'ชุมชน', en:'Community'},
-    {page:'about', icon:'👤', th:'เพิ่มเติม', en:'More'}
+    {page:'home', icon:'🏠', th:'หน้าแรก', en:'Home', type:'link'},
+    {page:'mybooks', icon:'📚', th:'หนังสือ', en:'Books', type:'link'},
+    {page:'browse-rec', icon:'⭐', th:'แนะนำ', en:'For You', type:'submenu', submenu:'browse'},
+    {page:'community-discuss', icon:'💬', th:'ชุมชน', en:'Community', type:'submenu', submenu:'community'},
+    {page:'more', icon:'☰', th:'เพิ่มเติม', en:'More', type:'panel'}
   ];
-  nav.innerHTML = items.map(i =>
-    `<a href="${pageHref(i.page)}" class="${currentPage===i.page?'active':''}">
+  nav.innerHTML = items.map(i => {
+    if (i.type === 'link') {
+      return `<a href="${pageHref(i.page)}" class="${currentPage===i.page?'active':''}">
+        <span class="nav-icon">${i.icon}</span>
+        <span>${lang==='th'?i.th:i.en}</span>
+      </a>`;
+    }
+    const isActive = (i.submenu === 'browse' && currentPage.startsWith('browse'))
+      || (i.submenu === 'community' && currentPage.startsWith('community'));
+    return `<a href="#" class="bottom-nav-trigger${isActive?' active':''}" data-panel="${i.submenu || i.page}">
       <span class="nav-icon">${i.icon}</span>
       <span>${lang==='th'?i.th:i.en}</span>
-    </a>`
-  ).join('');
+    </a>`;
+  }).join('');
   // Insert before footer
   const footer = $('footer.footer');
   if (footer) footer.before(nav);
   else document.body.appendChild(nav);
-}
 
-// --- Inject Mobile Toolbar (theme / lang / desktop toggle) ---
-function injectMobileToolbar() {
-  const savedTheme = localStorage.getItem('gr_theme') || 'light';
-  const bar = document.createElement('div');
-  bar.className = 'mobile-toolbar';
-  bar.id = 'mobileToolbar';
-  bar.innerHTML = `
-    <div class="mobile-toolbar-item">
-      <span>${savedTheme==='dark'?'🌙':'☀️'}</span>
-      <label class="toggle-switch">
-        <input type="checkbox" id="mobileThemeToggle" ${savedTheme==='dark'?'checked':''}>
-        <span class="toggle-slider"></span>
-      </label>
-      <span class="mobile-toolbar-label" data-th="${savedTheme==='dark'?'มืด':'สว่าง'}" data-en="${savedTheme==='dark'?'Dark':'Light'}">${savedTheme==='dark'?(lang==='th'?'มืด':'Dark'):(lang==='th'?'สว่าง':'Light')}</span>
+  // --- Browse submenu panel ---
+  const browsePanel = document.createElement('div');
+  browsePanel.className = 'bottom-submenu-panel';
+  browsePanel.id = 'browsePanel';
+  browsePanel.innerHTML = `
+    <div class="bottom-submenu-header">
+      <span data-th="📖 สำรวจ" data-en="📖 Browse">${lang==='th'?'📖 สำรวจ':'📖 Browse'}</span>
+      <button class="bottom-submenu-close">✕</button>
     </div>
-    <div class="mobile-toolbar-item">
-      <span>🌐</span>
-      <label class="toggle-switch">
-        <input type="checkbox" id="mobileLangToggle" ${lang==='en'?'checked':''}>
-        <span class="toggle-slider"></span>
-      </label>
-      <span class="mobile-toolbar-label">${lang==='th'?'TH':'EN'}</span>
-    </div>
-    <div class="mobile-toolbar-item">
-      <span>🖥️</span>
-      <button class="mobile-toolbar-btn" id="mobileDesktopBtn" data-th="เดสก์ท็อป" data-en="Desktop">${lang==='th'?'เดสก์ท็อป':'Desktop'}</button>
+    <div class="bottom-submenu-grid">
+      <a href="browse-rec.html" class="bottom-submenu-item">
+        <span class="bottom-submenu-icon">⭐</span>
+        <span data-th="แนะนำ" data-en="Recommendations">${lang==='th'?'แนะนำ':'Recommendations'}</span>
+      </a>
+      <a href="browse-choice.html" class="bottom-submenu-item">
+        <span class="bottom-submenu-icon">🏆</span>
+        <span data-th="Choice Awards" data-en="Choice Awards">Choice Awards</span>
+      </a>
+      <a href="browse-new.html" class="bottom-submenu-item">
+        <span class="bottom-submenu-icon">🆕</span>
+        <span data-th="หนังสือใหม่" data-en="New Releases">${lang==='th'?'หนังสือใหม่':'New Releases'}</span>
+      </a>
+      <a href="browse-list.html" class="bottom-submenu-item">
+        <span class="bottom-submenu-icon">📋</span>
+        <span data-th="รายการ" data-en="Lists">${lang==='th'?'รายการ':'Lists'}</span>
+      </a>
+      <a href="browse-explore.html" class="bottom-submenu-item">
+        <span class="bottom-submenu-icon">🔭</span>
+        <span data-th="สำรวจ" data-en="Explore">${lang==='th'?'สำรวจ':'Explore'}</span>
+      </a>
+      <a href="browse-news.html" class="bottom-submenu-item">
+        <span class="bottom-submenu-icon">📰</span>
+        <span data-th="ข่าวสาร" data-en="News">${lang==='th'?'ข่าวสาร':'News'}</span>
+      </a>
     </div>
   `;
-  // Insert right after bottom-nav
-  const bottomNav = $('.bottom-nav');
-  if (bottomNav) bottomNav.after(bar);
-  else document.body.appendChild(bar);
+  nav.after(browsePanel);
+
+  // --- Community submenu panel ---
+  const communityPanel = document.createElement('div');
+  communityPanel.className = 'bottom-submenu-panel';
+  communityPanel.id = 'communityPanel';
+  communityPanel.innerHTML = `
+    <div class="bottom-submenu-header">
+      <span data-th="💬 ชุมชน" data-en="💬 Community">${lang==='th'?'💬 ชุมชน':'💬 Community'}</span>
+      <button class="bottom-submenu-close">✕</button>
+    </div>
+    <div class="bottom-submenu-grid">
+      <a href="community-groups.html" class="bottom-submenu-item">
+        <span class="bottom-submenu-icon">👥</span>
+        <span data-th="กลุ่ม" data-en="Groups">${lang==='th'?'กลุ่ม':'Groups'}</span>
+      </a>
+      <a href="community-discuss.html" class="bottom-submenu-item">
+        <span class="bottom-submenu-icon">💬</span>
+        <span data-th="สนทนา" data-en="Discussions">${lang==='th'?'สนทนา':'Discussions'}</span>
+      </a>
+      <a href="community-quotes.html" class="bottom-submenu-item">
+        <span class="bottom-submenu-icon">💡</span>
+        <span data-th="คำคม" data-en="Quotes">${lang==='th'?'คำคม':'Quotes'}</span>
+      </a>
+    </div>
+  `;
+  browsePanel.after(communityPanel);
+
+  // --- More panel — unified single page with all sections ---
+  const savedTheme = localStorage.getItem('gr_theme') || 'light';
+  const morePanel = document.createElement('div');
+  morePanel.className = 'bottom-more-panel';
+  morePanel.id = 'morePanel';
+  morePanel.innerHTML = `
+    <div class="bottom-submenu-header">
+      <span data-th="☰ เพิ่มเติม" data-en="☰ More">${lang==='th'?'☰ เพิ่มเติม':'☰ More'}</span>
+      <button class="bottom-submenu-close">✕</button>
+    </div>
+    <div class="more-panel-content">
+      <div class="more-panel-grid-sections">
+        <!-- Browse section -->
+        <div class="more-panel-grid-section">
+          <div class="more-panel-section-label" data-th="📖 สำรวจ" data-en="📖 Browse">${lang==='th'?'📖 สำรวจ':'📖 Browse'}</div>
+          <div class="more-panel-icon-grid">
+            <a href="browse-rec.html" class="more-panel-icon-item">
+              <span class="more-panel-icon">⭐</span>
+              <span data-th="แนะนำ" data-en="For You">${lang==='th'?'แนะนำ':'For You'}</span>
+            </a>
+            <a href="browse-choice.html" class="more-panel-icon-item">
+              <span class="more-panel-icon">🏆</span>
+              <span>Awards</span>
+            </a>
+            <a href="browse-new.html" class="more-panel-icon-item">
+              <span class="more-panel-icon">🆕</span>
+              <span data-th="ใหม่" data-en="New">${lang==='th'?'ใหม่':'New'}</span>
+            </a>
+            <a href="browse-list.html" class="more-panel-icon-item">
+              <span class="more-panel-icon">📋</span>
+              <span data-th="รายการ" data-en="Lists">${lang==='th'?'รายการ':'Lists'}</span>
+            </a>
+            <a href="browse-explore.html" class="more-panel-icon-item">
+              <span class="more-panel-icon">🔭</span>
+              <span data-th="สำรวจ" data-en="Explore">${lang==='th'?'สำรวจ':'Explore'}</span>
+            </a>
+            <a href="browse-news.html" class="more-panel-icon-item">
+              <span class="more-panel-icon">📰</span>
+              <span data-th="ข่าว" data-en="News">${lang==='th'?'ข่าว':'News'}</span>
+            </a>
+          </div>
+        </div>
+        <!-- About & Links section -->
+        <div class="more-panel-grid-section">
+          <div class="more-panel-section-label" data-th="📄 เกี่ยวกับและลิงก์" data-en="📄 About & Links">${lang==='th'?'📄 เกี่ยวกับและลิงก์':'📄 About & Links'}</div>
+          <div class="more-panel-icon-grid">
+            <a href="about.html" class="more-panel-icon-item">
+              <span class="more-panel-icon">ℹ️</span>
+              <span data-th="เกี่ยวกับ" data-en="About">${lang==='th'?'เกี่ยวกับ':'About'}</span>
+            </a>
+            <a href="contact.html" class="more-panel-icon-item">
+              <span class="more-panel-icon">📞</span>
+              <span data-th="ติดต่อ" data-en="Contact">${lang==='th'?'ติดต่อ':'Contact'}</span>
+            </a>
+            <a href="faq.html" class="more-panel-icon-item">
+              <span class="more-panel-icon">❓</span>
+              <span>FAQ</span>
+            </a>
+            <a href="#" class="more-panel-icon-item">
+              <span class="more-panel-icon">📜</span>
+              <span data-th="ข้อกำหนด" data-en="Terms">${lang==='th'?'ข้อกำหนด':'Terms'}</span>
+            </a>
+            <a href="#" class="more-panel-icon-item">
+              <span class="more-panel-icon">🔒</span>
+              <span data-th="ความเป็นส่วนตัว" data-en="Privacy">${lang==='th'?'ความเป็นส่วนตัว':'Privacy'}</span>
+            </a>
+            <a href="#" class="more-panel-icon-item">
+              <span class="more-panel-icon">💼</span>
+              <span data-th="ร่วมงาน" data-en="Careers">${lang==='th'?'ร่วมงาน':'Careers'}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Settings row -->
+      <div class="more-panel-settings-row">
+        <div class="more-settings-item">
+          <span>${savedTheme==='dark'?'🌙':'☀️'}</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="moreThemeToggle" ${savedTheme==='dark'?'checked':''}>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="more-settings-item">
+          <span>🌐 ${lang==='th'?'TH':'EN'}</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="moreLangToggle" ${lang==='en'?'checked':''}>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="more-settings-item">
+          <span>🖥️</span>
+          <button class="btn btn-secondary btn-sm" id="moreDesktopBtn" data-th="เดสก์ท็อป" data-en="Desktop">${lang==='th'?'เดสก์ท็อป':'Desktop'}</button>
+        </div>
+      </div>
+      <!-- Social row -->
+      <div class="more-panel-social-row">
+        <a href="#" title="Facebook">📘</a>
+        <a href="#" title="Twitter / X">🐦</a>
+        <a href="#" title="Instagram">📷</a>
+        <a href="#" title="LinkedIn">🔗</a>
+        <span class="more-social-divider">|</span>
+        <a href="#">📱 iOS</a>
+        <a href="#">🤖 Android</a>
+      </div>
+    </div>
+  `;
+  communityPanel.after(morePanel);
+
+  // --- Bottom nav panel interaction ---
+  initBottomNavPanels();
+}
+
+function initBottomNavPanels() {
+  const panels = {
+    'browse': $('#browsePanel'),
+    'community': $('#communityPanel'),
+    'more': $('#morePanel')
+  };
+
+  function closeAllPanels() {
+    Object.values(panels).forEach(p => { if (p) p.classList.remove('open'); });
+    $$('.bottom-nav-trigger').forEach(a => a.classList.remove('panel-open'));
+  }
+
+  $$('.bottom-nav-trigger').forEach(trigger => {
+    trigger.addEventListener('click', e => {
+      e.preventDefault();
+      const key = trigger.dataset.panel;
+      const panel = panels[key];
+      if (!panel) return;
+      const wasOpen = panel.classList.contains('open');
+      closeAllPanels();
+      if (!wasOpen) {
+        panel.classList.add('open');
+        trigger.classList.add('panel-open');
+      }
+    });
+  });
+
+  $$('.bottom-submenu-close').forEach(btn => {
+    btn.addEventListener('click', () => closeAllPanels());
+  });
+
+  // Close on background click
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.bottom-nav') && !e.target.closest('.bottom-submenu-panel') && !e.target.closest('.bottom-more-panel')) {
+      closeAllPanels();
+    }
+  });
+
+  // --- More panel toggles ---
+  const moreTheme = $('#moreThemeToggle');
+  if (moreTheme) {
+    moreTheme.onchange = () => {
+      const theme = moreTheme.checked ? 'dark' : 'light';
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem('gr_theme', theme);
+      const headerTheme = $('#themeToggle');
+      if (headerTheme) headerTheme.checked = moreTheme.checked;
+      const row = moreTheme.closest('.more-settings-item');
+      if (row) {
+        row.querySelector('span').textContent = moreTheme.checked ? '🌙' : '☀️';
+      }
+    };
+  }
+
+  const moreLang = $('#moreLangToggle');
+  if (moreLang) {
+    moreLang.onchange = () => {
+      lang = moreLang.checked ? 'en' : 'th';
+      localStorage.setItem('gr_lang', lang);
+      location.reload();
+    };
+  }
+
+  const moreDesktop = $('#moreDesktopBtn');
+  if (moreDesktop) {
+    moreDesktop.onclick = () => {
+      document.body.classList.remove('mobile-view');
+      localStorage.setItem('gr_mobile', 'false');
+      const headerToggle = $('#mobileToggle');
+      if (headerToggle) headerToggle.checked = false;
+      closeAllPanels();
+    };
+  }
+}
+
+// --- Inject Mobile Toolbar (deprecated — toggles moved to More panel) ---
+function injectMobileToolbar() {
+  // No longer needed — toggles are in the bottom nav More panel
 }
 
 // --- Inject Footer ---
@@ -316,10 +546,11 @@ function bookCardHTML(book) {
   const c = colors[Math.floor(Math.random()*colors.length)];
   const coverSrc = book.local_cover || book.cover_url || '';
   const title = t(book, 'title');
-  const bookId = book.id || book.title_en || title;
+  const bookId = book.id || book.book_id || book.title_en || title;
+  const detailHref = `book-detail.html?id=${encodeURIComponent(bookId)}`;
   const coverHTML = coverSrc
-    ? `<img class="book-cover" src="${coverSrc}" alt="${title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="book-cover ph-cover" style="display:none;background:linear-gradient(135deg,${c},${c}dd);align-items:center;justify-content:center;font-size:.7rem;padding:12px;color:#5a4a3a">${title}</div>`
-    : `<div class="book-cover ph-cover" style="background:linear-gradient(135deg,${c},${c}dd);display:flex;align-items:center;justify-content:center;font-size:.7rem;padding:12px;color:#5a4a3a">${title}</div>`;
+    ? `<a href="${detailHref}"><img class="book-cover" src="${coverSrc}" alt="${title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></a><a href="${detailHref}" class="book-cover ph-cover" style="display:none;background:linear-gradient(135deg,${c},${c}dd);align-items:center;justify-content:center;font-size:.7rem;padding:12px;color:#5a4a3a;text-decoration:none">${title}</a>`
+    : `<a href="${detailHref}" class="book-cover ph-cover" style="background:linear-gradient(135deg,${c},${c}dd);display:flex;align-items:center;justify-content:center;font-size:.7rem;padding:12px;color:#5a4a3a;text-decoration:none">${title}</a>`;
   const savedRating = getUserRating(bookId);
   const displayRating = savedRating || Math.round(book.rating || 0);
   const starsHTML = [1,2,3,4,5].map(i =>
@@ -327,7 +558,7 @@ function bookCardHTML(book) {
   ).join('');
   return `<div class="book-card">
     ${coverHTML}
-    <div class="book-title">${title}</div>
+    <a href="${detailHref}" class="book-title" style="text-decoration:none;color:inherit">${title}</a>
     <div class="book-author">${book.author||''}</div>
     <div class="star-rating" data-book="${encodeURIComponent(bookId)}">${starsHTML} <span class="rating-value" style="font-size:.7rem;color:var(--text-muted)">${savedRating ? savedRating+'.0' : (book.rating||'')}</span></div>
     ${shelfDropdownHTML(bookId)}
@@ -442,17 +673,9 @@ function initTheme() {
     const theme = toggle.checked ? 'dark' : 'light';
     document.documentElement.dataset.theme = theme;
     localStorage.setItem('gr_theme', theme);
-    // Sync mobile toolbar toggle
-    const mobileTheme = $('#mobileThemeToggle');
-    if (mobileTheme) {
-      mobileTheme.checked = toggle.checked;
-      const item = mobileTheme.closest('.mobile-toolbar-item');
-      if (item) {
-        item.querySelector('span').textContent = toggle.checked ? '🌙' : '☀️';
-        const lbl = item.querySelector('.mobile-toolbar-label');
-        if (lbl) lbl.textContent = lang==='th'?(toggle.checked?'มืด':'สว่าง'):(toggle.checked?'Dark':'Light');
-      }
-    }
+    // Sync More panel toggle
+    const moreTheme = $('#moreThemeToggle');
+    if (moreTheme) moreTheme.checked = toggle.checked;
   };
 }
 
@@ -483,7 +706,6 @@ function initMobile() {
     const savedMobile = localStorage.getItem('gr_mobile');
     let isMobile;
     if (savedMobile === null) {
-      // First visit: auto-detect device
       isMobile = detectMobileDevice();
       localStorage.setItem('gr_mobile', isMobile);
     } else {
@@ -499,42 +721,6 @@ function initMobile() {
     hamburger.onclick = () => {
       const mn = $('#mobileNav');
       if (mn) mn.classList.toggle('open');
-    };
-  }
-  // --- Mobile toolbar toggles ---
-  const mobileTheme = $('#mobileThemeToggle');
-  if (mobileTheme) {
-    mobileTheme.onchange = () => {
-      const theme = mobileTheme.checked ? 'dark' : 'light';
-      document.documentElement.dataset.theme = theme;
-      localStorage.setItem('gr_theme', theme);
-      // Sync header toggle
-      const headerTheme = $('#themeToggle');
-      if (headerTheme) headerTheme.checked = mobileTheme.checked;
-      // Update icon/label
-      const item = mobileTheme.closest('.mobile-toolbar-item');
-      if (item) {
-        item.querySelector('span').textContent = mobileTheme.checked ? '🌙' : '☀️';
-        const lbl = item.querySelector('.mobile-toolbar-label');
-        if (lbl) { lbl.dataset.th = mobileTheme.checked?'มืด':'สว่าง'; lbl.dataset.en = mobileTheme.checked?'Dark':'Light'; lbl.textContent = lang==='th'?(mobileTheme.checked?'มืด':'สว่าง'):(mobileTheme.checked?'Dark':'Light'); }
-      }
-    };
-  }
-  const mobileLang = $('#mobileLangToggle');
-  if (mobileLang) {
-    mobileLang.onchange = () => {
-      lang = mobileLang.checked ? 'en' : 'th';
-      localStorage.setItem('gr_lang', lang);
-      location.reload();
-    };
-  }
-  const desktopBtn = $('#mobileDesktopBtn');
-  if (desktopBtn) {
-    desktopBtn.onclick = () => {
-      document.body.classList.remove('mobile-view');
-      localStorage.setItem('gr_mobile', 'false');
-      const headerToggle = $('#mobileToggle');
-      if (headerToggle) headerToggle.checked = false;
     };
   }
 }
@@ -563,6 +749,153 @@ function updateLanguage() {
   });
 }
 
+// --- Review Modal ---
+function injectReviewModal() {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.id = 'reviewModal';
+  overlay.innerHTML = `
+  <div class="modal review-modal">
+    <div class="modal-header">
+      <h2 data-th="เขียนรีวิว" data-en="Write a Review">${lang==='th'?'เขียนรีวิว':'Write a Review'}</h2>
+      <button class="modal-close" id="closeReviewModal">✕</button>
+    </div>
+    <div class="review-modal-body">
+      <div class="review-modal-rating">
+        <span data-th="ให้คะแนน:" data-en="Your rating:">${lang==='th'?'ให้คะแนน:':'Your rating:'}</span>
+        <div class="star-rating review-modal-stars" id="reviewModalStars">
+          <span class="star" data-value="1">★</span>
+          <span class="star" data-value="2">★</span>
+          <span class="star" data-value="3">★</span>
+          <span class="star" data-value="4">★</span>
+          <span class="star" data-value="5">★</span>
+        </div>
+        <span class="review-modal-rating-text" id="reviewModalRatingText"></span>
+      </div>
+      <textarea class="review-modal-textarea" id="reviewModalText" rows="5" placeholder="${lang==='th'?'เขียนรีวิวของคุณที่นี่...':'Write your review here...'}" maxlength="2000"></textarea>
+      <div class="review-modal-charcount"><span id="reviewCharCount">0</span>/2000</div>
+      <div class="review-modal-actions">
+        <button class="btn btn-secondary btn-sm" id="cancelReviewBtn" data-th="ยกเลิก" data-en="Cancel">${lang==='th'?'ยกเลิก':'Cancel'}</button>
+        <button class="btn btn-primary btn-sm" id="submitReviewBtn" data-th="ส่งรีวิว" data-en="Submit Review">${lang==='th'?'ส่งรีวิว':'Submit Review'}</button>
+      </div>
+    </div>
+  </div>`;
+  document.body.appendChild(overlay);
+}
+
+function initReviewModal() {
+  const modal = $('#reviewModal');
+  if (!modal) return;
+  const closeBtn = $('#closeReviewModal');
+  const cancelBtn = $('#cancelReviewBtn');
+  const submitBtn = $('#submitReviewBtn');
+  const textarea = $('#reviewModalText');
+  const charCount = $('#reviewCharCount');
+  const starsContainer = $('#reviewModalStars');
+  const ratingText = $('#reviewModalRatingText');
+  let selectedRating = 0;
+  let currentBookId = null;
+
+  // Close handlers
+  const closeModal = () => { modal.classList.remove('show'); selectedRating = 0; if (textarea) textarea.value = ''; if (charCount) charCount.textContent = '0'; updateModalStars(0); };
+  if (closeBtn) closeBtn.onclick = closeModal;
+  if (cancelBtn) cancelBtn.onclick = closeModal;
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+  // Star interaction within modal
+  function updateModalStars(val) {
+    if (!starsContainer) return;
+    starsContainer.querySelectorAll('.star').forEach(s => {
+      s.classList.toggle('filled', parseInt(s.dataset.value) <= val);
+    });
+    const labels = lang==='th'
+      ? ['','แย่มาก','ไม่ค่อยดี','ปานกลาง','ดี','ยอดเยี่ยม']
+      : ['','Terrible','Bad','OK','Good','Amazing'];
+    if (ratingText) ratingText.textContent = val > 0 ? labels[val] : '';
+  }
+  if (starsContainer) {
+    starsContainer.addEventListener('click', e => {
+      const star = e.target.closest('.star');
+      if (!star) return;
+      selectedRating = parseInt(star.dataset.value);
+      updateModalStars(selectedRating);
+    });
+    starsContainer.addEventListener('mouseover', e => {
+      const star = e.target.closest('.star');
+      if (!star) return;
+      const v = parseInt(star.dataset.value);
+      starsContainer.querySelectorAll('.star').forEach(s => {
+        s.classList.toggle('hover', parseInt(s.dataset.value) <= v);
+      });
+    });
+    starsContainer.addEventListener('mouseout', () => {
+      starsContainer.querySelectorAll('.star').forEach(s => s.classList.remove('hover'));
+    });
+  }
+
+  // Char count
+  if (textarea && charCount) {
+    textarea.addEventListener('input', () => { charCount.textContent = textarea.value.length; });
+  }
+
+  // Submit
+  if (submitBtn) {
+    submitBtn.onclick = () => {
+      if (selectedRating === 0) { alert(lang==='th'?'กรุณาให้คะแนนก่อน':'Please select a rating first'); return; }
+      if (currentBookId) {
+        setUserRating(currentBookId, selectedRating);
+        // Update star display on page
+        const pageStars = document.querySelector(`.star-rating[data-book="${encodeURIComponent(currentBookId)}"]`);
+        if (pageStars) {
+          pageStars.querySelectorAll('.star').forEach(s => {
+            s.classList.toggle('filled', parseInt(s.dataset.value) <= selectedRating);
+          });
+          const valSpan = pageStars.querySelector('.rating-value');
+          if (valSpan) valSpan.textContent = selectedRating + '.0';
+        }
+      }
+      // Save review to localStorage
+      if (currentBookId && textarea && textarea.value.trim()) {
+        const reviews = JSON.parse(localStorage.getItem('gr_reviews') || '{}');
+        reviews[currentBookId] = { rating: selectedRating, text: textarea.value.trim(), date: new Date().toLocaleDateString('th-TH') };
+        localStorage.setItem('gr_reviews', JSON.stringify(reviews));
+        // Add to visible review list if exists
+        const reviewList = $('#reviewsList');
+        if (reviewList) {
+          const newCard = document.createElement('div');
+          newCard.className = 'review-card';
+          newCard.innerHTML = `
+            <div class="review-header">
+              <div class="review-avatar">👤</div>
+              <span class="review-name">${lang==='th'?'คุณ':'You'}</span>
+              <span class="review-date">${new Date().toLocaleDateString('th-TH')}</span>
+            </div>
+            <div class="review-stars">${'★'.repeat(selectedRating)}${'☆'.repeat(5-selectedRating)}</div>
+            <div class="review-text">${textarea.value.trim().replace(/</g,'&lt;')}</div>
+          `;
+          reviewList.prepend(newCard);
+        }
+      }
+      closeModal();
+    };
+  }
+
+  // Public open function
+  window.openReviewModal = function(bookId) {
+    currentBookId = bookId;
+    selectedRating = getUserRating(bookId) || 0;
+    updateModalStars(selectedRating);
+    if (textarea) textarea.value = '';
+    // Load existing review
+    const reviews = JSON.parse(localStorage.getItem('gr_reviews') || '{}');
+    if (reviews[bookId] && textarea) {
+      textarea.value = reviews[bookId].text || '';
+      if (charCount) charCount.textContent = textarea.value.length;
+    }
+    modal.classList.add('show');
+  };
+}
+
 // ===== INIT ALL SHARED COMPONENTS =====
 let _componentsInitialized = false;
 function initComponents() {
@@ -576,6 +909,7 @@ function initComponents() {
   injectHeader();
   injectMobileNav();
   injectGenreModal();
+  injectReviewModal();
   // Page content is in the HTML file itself
   injectBottomNav();
   injectMobileToolbar();
@@ -587,6 +921,7 @@ function initComponents() {
   initDropdowns();
   initStarRatings();
   initShelfDropdowns();
+  initReviewModal();
   updateLanguage();
 }
 

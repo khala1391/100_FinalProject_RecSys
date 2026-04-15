@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greed Route — รายละเอียดหนังสือ</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="book-detail">
+
+<main class="container">
+  <div id="bookDetailContent" style="min-height:300px">
+    <div style="text-align:center;padding:60px 0;color:var(--text-muted)">
+      <span data-th="กำลังโหลด..." data-en="Loading...">กำลังโหลด...</span>
+    </div>
+  </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+window.onDataReady = function() {
+  initComponents();
+  populateGenreModal();
+
+  const params = new URLSearchParams(window.location.search);
+  const bookId = params.get('id');
+  const container = document.getElementById('bookDetailContent');
+  if (!bookId || !books.length) {
+    container.innerHTML = `<div style="text-align:center;padding:60px 0;color:var(--text-muted)">
+      <h2 data-th="ไม่พบหนังสือ" data-en="Book not found">${lang==='th'?'ไม่พบหนังสือ':'Book not found'}</h2>
+      <a href="index.html" class="btn btn-primary" style="margin-top:16px">${lang==='th'?'กลับหน้าแรก':'Back to Home'}</a>
+    </div>`;
+    return;
+  }
+
+  const book = books.find(b => (b.id || b.book_id || b.title_en || t(b,'title')) === bookId);
+  if (!book) {
+    container.innerHTML = `<div style="text-align:center;padding:60px 0;color:var(--text-muted)">
+      <h2 data-th="ไม่พบหนังสือ" data-en="Book not found">${lang==='th'?'ไม่พบหนังสือ':'Book not found'}</h2>
+      <a href="index.html" class="btn btn-primary" style="margin-top:16px">${lang==='th'?'กลับหน้าแรก':'Back to Home'}</a>
+    </div>`;
+    return;
+  }
+
+  const title = t(book, 'title');
+  document.title = 'Greed Route — ' + title;
+  const coverSrc = book.local_cover || book.cover_url || '';
+  const savedRating = getUserRating(bookId);
+  const displayRating = savedRating || Math.round(book.rating || 0);
+  const starsHTML = [1,2,3,4,5].map(i =>
+    `<span class="star${i <= displayRating ? ' filled' : ''}" data-value="${i}" data-book="${encodeURIComponent(bookId)}">★</span>`
+  ).join('');
+
+  // Genre info
+  const genreName = book.genre || '';
+  const genreObj = (typeof genres !== 'undefined' && genres.length) ? genres.find(g => g.key === genreName || g.name_en === genreName) : null;
+  const genreLabel = genreObj ? (lang==='th' ? genreObj.name_th : genreObj.name_en) : genreName;
+
+  // Cover HTML
+  const coverHTML = coverSrc
+    ? `<img class="book-detail-cover" src="${coverSrc}" alt="${title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+       <div class="book-detail-cover-ph" style="display:none">${title}</div>`
+    : `<div class="book-detail-cover-ph">${title}</div>`;
+
+  // Description placeholder
+  const descTh = 'หนังสือเล่มนี้เป็นผลงานที่น่าสนใจในหมวด' + genreLabel + ' เขียนโดย ' + (book.author || 'ผู้เขียน') + ' ได้รับคะแนนเฉลี่ย ' + (book.rating || '-') + ' จากผู้อ่าน เหมาะสำหรับผู้ที่ชื่นชอบการอ่านหนังสือแนวนี้ เนื้อหาครอบคลุมหลากหลายแง่มุมที่น่าสนใจ ช่วยเปิดมุมมองใหม่ๆ ให้กับผู้อ่าน';
+  const descEn = 'This is a compelling book in the ' + genreLabel + ' genre, written by ' + (book.author || 'the author') + '. It has received an average rating of ' + (book.rating || '-') + ' from readers. A great pick for anyone who enjoys this genre, covering diverse and thought-provoking perspectives.';
+  const desc = lang === 'th' ? descTh : descEn;
+
+  // Similar books (same genre, excluding current)
+  const similarBooks = books.filter(b => b.genre === book.genre && (b.id || b.book_id || b.title_en) !== bookId).slice(0, 6);
+  const reviewCount = Math.floor(Math.random()*500+50);
+
+  // Reviews (mock)
+  const reviewers = [
+    {name: 'Siriporn K.', avatar: '👩', rating: 5, text: lang==='th'?'หนังสือเล่มนี้ยอดเยี่ยมมาก อ่านสนุกและได้ข้อคิดดีๆ มากมาย แนะนำเลยค่ะ!':'This book is absolutely amazing! Fun to read and full of great insights. Highly recommended!', date: '10 เม.ย. 2025'},
+    {name: 'Pattanapong T.', avatar: '👨', rating: 4, text: lang==='th'?'เนื้อหาดี อ่านเข้าใจง่าย แต่บางตอนอาจจะยาวไปหน่อย โดยรวมชอบมากครับ':'Good content, easy to understand. Some parts are a bit long, but overall I really enjoyed it.', date: '5 เม.ย. 2025'},
+    {name: 'Nattawut S.', avatar: '🧑', rating: 4, text: lang==='th'?'ได้แรงบันดาลใจเยอะเลย เหมาะสำหรับคนที่กำลังหาหนังสือดีๆ อ่าน':'Very inspiring! Perfect for anyone looking for a great book to read.', date: '28 มี.ค. 2025'}
+  ];
+
+  container.innerHTML = `
+    <div class="book-detail-layout">
+      <div class="book-detail-cover-col">
+        ${coverHTML}
+        <div class="book-detail-actions">
+          ${shelfDropdownHTML(bookId)}
+          <button class="btn-buy" data-th="🛒 ซื้อหนังสือ" data-en="🛒 Buy This Book">${lang==='th'?'🛒 ซื้อหนังสือ':'🛒 Buy This Book'}</button>
+        </div>
+      </div>
+      <div class="book-detail-info">
+        <h1 class="book-detail-title">${title}</h1>
+        <div class="book-detail-author">
+          <span data-th="โดย" data-en="by">${lang==='th'?'โดย':'by'}</span>
+          <a href="#">${book.author || (lang==='th'?'ไม่ระบุผู้แต่ง':'Unknown Author')}</a>
+        </div>
+        <div class="book-detail-rating">
+          <span class="rating-number">${book.rating || '-'}</span>
+          <span class="star-rating" data-book="${encodeURIComponent(bookId)}">${starsHTML}</span>
+          <span class="rating-count">${reviewCount} ${lang==='th'?'รีวิว':'reviews'}</span>
+        </div>
+        <div class="book-detail-genres">
+          ${genreLabel ? `<a href="browse-explore.html" class="genre-tag">${genreLabel}</a>` : ''}
+        </div>
+        <div class="book-detail-description collapsed" id="bookDesc">
+          ${desc}
+        </div>
+        <button class="show-more-btn" id="showMoreBtn" data-th="แสดงเพิ่มเติม ▼" data-en="Show more ▼">${lang==='th'?'แสดงเพิ่มเติม ▼':'Show more ▼'}</button>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <button class="review-toggle-btn" id="toggleReviewsBtn">
+            💬 <span data-th="รีวิว (${reviewCount})" data-en="Reviews (${reviewCount})">${lang==='th'?'รีวิว ('+reviewCount+')':'Reviews ('+reviewCount+')'}</span>
+          </button>
+          <button class="review-toggle-btn" id="writeReviewBtn" onclick="openReviewModal('${bookId.replace(/'/g,"\\'")}')">
+            ✏️ <span data-th="เขียนรีวิว" data-en="Write a Review">${lang==='th'?'เขียนรีวิว':'Write a Review'}</span>
+          </button>
+        </div>
+
+        <div class="reviews-section collapsed" id="reviewsSection">
+          <div class="book-detail-section-title" data-th="📝 รีวิวจากชุมชน" data-en="📝 Community Reviews">${lang==='th'?'📝 รีวิวจากชุมชน':'📝 Community Reviews'}</div>
+          <div id="reviewsList">
+          ${reviewers.map(r => `
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">${r.avatar}</div>
+                <span class="review-name">${r.name}</span>
+                <span class="review-date">${r.date}</span>
+              </div>
+              <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+              <div class="review-text">${r.text}</div>
+            </div>
+          `).join('')}
+          </div>
+        </div>
+
+        <div class="book-detail-section-title" data-th="📚 หนังสือที่คล้ายกัน" data-en="📚 Similar Books">${lang==='th'?'📚 หนังสือที่คล้ายกัน':'📚 Similar Books'}</div>
+        <div class="similar-books-grid">
+          ${similarBooks.map(b => bookCardHTML(b)).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Show more / less toggle
+  const showMoreBtn = document.getElementById('showMoreBtn');
+  const bookDesc = document.getElementById('bookDesc');
+  if (showMoreBtn && bookDesc) {
+    showMoreBtn.addEventListener('click', () => {
+      const isCollapsed = bookDesc.classList.contains('collapsed');
+      bookDesc.classList.toggle('collapsed');
+      if (isCollapsed) {
+        showMoreBtn.textContent = lang==='th' ? 'แสดงน้อยลง ▲' : 'Show less ▲';
+      } else {
+        showMoreBtn.textContent = lang==='th' ? 'แสดงเพิ่มเติม ▼' : 'Show more ▼';
+      }
+    });
+  }
+
+  // Review toggle
+  const toggleReviewsBtn = document.getElementById('toggleReviewsBtn');
+  const reviewsSection = document.getElementById('reviewsSection');
+  if (toggleReviewsBtn && reviewsSection) {
+    toggleReviewsBtn.addEventListener('click', () => {
+      reviewsSection.classList.toggle('collapsed');
+      toggleReviewsBtn.classList.toggle('active');
+    });
+  }
+
+  // Re-init star ratings and shelf dropdowns for this page
+  initStarRatings();
+  initShelfDropdowns();
+};
+</script>
+</body>
+</html>
