@@ -1,0 +1,1364 @@
+{
+  "genres": [
+    {
+      "id": "business",
+      "th": "ธุรกิจ การเงิน และการลงทุน",
+      "en": "Business, Finance & Investment",
+      "desc_th": "ครอบคลุมกลยุทธ์ธุรกิจและเทคนิคการลงทุน",
+      "desc_en": "Business strategies and investment techniques",
+      "ookbee_path": "/catalog/book/category/ธุรกิจ การเงิน และการลงทุน"
+    },
+    {
+      "id": "psychology",
+      "th": "จิตวิทยาและการพัฒนาตนเอง",
+      "en": "Psychology & Self-Development",
+      "desc_th": "หมวดหมู่ยอดฮิตสำหรับการเพิ่มศักยภาพให้ตัวเอง",
+      "desc_en": "Popular category for self-improvement",
+      "ookbee_path": "/catalog/book/category/จิตวิทยาและการพัฒนาตนเอง"
+    },
+    {
+      "id": "romance",
+      "th": "นิยายโรแมนซ์",
+      "en": "Romance",
+      "desc_th": "เรื่องราวความรักที่ได้รับความนิยมสูงในทุกแพลตฟอร์ม",
+      "desc_en": "Love stories popular across all platforms",
+      "ookbee_path": null
+    },
+    {
+      "id": "mystery",
+      "th": "สืบสวนสอบสวนและระทึกขวัญ",
+      "en": "Mystery & Thriller",
+      "desc_th": "ปริศนาและการลุ้นระทึกที่น่าติดตาม",
+      "desc_en": "Mysteries and thrilling suspense",
+      "ookbee_path": null
+    },
+    {
+      "id": "fantasy",
+      "th": "แฟนตาซี",
+      "en": "Fantasy",
+      "desc_th": "การผจญภัยในโลกแห่งจินตนาการและเวทมนตร์",
+      "desc_en": "Adventures in worlds of imagination and magic",
+      "ookbee_path": null
+    },
+    {
+      "id": "scifi",
+      "th": "วิทยาศาสตร์",
+      "en": "Science Fiction",
+      "desc_th": "เรื่องราวอนาคต เทคโนโลยี และอวกาศ",
+      "desc_en": "Future stories, technology, and space",
+      "ookbee_path": null
+    },
+    {
+      "id": "history",
+      "th": "ประวัติศาสตร์",
+      "en": "History",
+      "desc_th": "เจาะลึกเหตุการณ์สำคัญและการเมืองในอดีต",
+      "desc_en": "Deep dive into important events and politics",
+      "ookbee_path": null
+    },
+    {
+      "id": "biography",
+      "th": "ชีวประวัติและบันทึกความทรงจำ",
+      "en": "Biography & Memoir",
+      "desc_th": "เรียนรู้จากชีวิตจริงของบุคคลสำคัญ",
+      "desc_en": "Learn from the real lives of notable people",
+      "ookbee_path": null
+    },
+    {
+      "id": "tech",
+      "th": "คอมพิวเตอร์และเทคโนโลยี",
+      "en": "Computer & Technology",
+      "desc_th": "อัปเดตเทรนด์ AI, Coding และนวัตกรรม",
+      "desc_en": "AI, Coding trends and innovation",
+      "ookbee_path": "/catalog/book/category/คอมพิวเตอร์และเทคโนโลยี"
+    },
+    {
+      "id": "comics",
+      "th": "การ์ตูนและมังงะ",
+      "en": "Comics & Manga",
+      "desc_th": "ทั้งมังงะญี่ปุ่นและการ์ตูนไทยยอดนิยม",
+      "desc_en": "Japanese manga and popular Thai comics",
+      "ookbee_path": "/catalog/book/category/การ์ตูนจากญี่ปุ่น"
+    },
+    {
+      "id": "ya",
+      "th": "วรรณกรรมเยาวชน",
+      "en": "Young Adult",
+      "desc_th": "เรื่องราวการเติบโตและผจญภัยที่อ่านได้ทุกวัย",
+      "desc_en": "Coming-of-age stories for all ages",
+      "ookbee_path": "/catalog/book/category/การ์ตูนเด็กและเยาวชน"
+    },
+    {
+      "id": "food",
+      "th": "อาหารและเครื่องดื่ม",
+      "en": "Cookbooks & Food",
+      "desc_th": "สูตรอาหารและศิลปะการทำอาหาร",
+      "desc_en": "Recipes and the art of cooking",
+      "ookbee_path": "/catalog/book/category/อาหารและเครื่องดื่ม"
+    },
+    {
+      "id": "travel",
+      "th": "ท่องเที่ยว",
+      "en": "Travel",
+      "desc_th": "แรงบันดาลใจในการเดินทางและคู่มือท่องเที่ยว",
+      "desc_en": "Travel inspiration and guides",
+      "ookbee_path": "/catalog/book/category/ท่องเที่ยว"
+    },
+    {
+      "id": "religion",
+      "th": "ศาสนาและความเชื่อ",
+      "en": "Religion & Beliefs",
+      "desc_th": "ปรัชญาการใช้ชีวิตและจิตวิญญาณ",
+      "desc_en": "Life philosophy and spirituality",
+      "ookbee_path": "/catalog/book/category/ศาสนาและความเชื่อ"
+    },
+    {
+      "id": "health",
+      "th": "สุขภาพและความงาม",
+      "en": "Health & Wellness",
+      "desc_th": "การดูแลร่างกายและสุขภาพจิต",
+      "desc_en": "Body care and mental health",
+      "ookbee_path": null
+    },
+    {
+      "id": "art",
+      "th": "ศิลปะและการออกแบบ",
+      "en": "Art & Design",
+      "desc_th": "ความคิดสร้างสรรค์และสถาปัตยกรรม",
+      "desc_en": "Creativity and architecture",
+      "ookbee_path": null
+    },
+    {
+      "id": "general",
+      "th": "ความรู้ทั่วไป",
+      "en": "General Knowledge",
+      "desc_th": "สารคดีและเรื่องน่ารู้อื่นๆ",
+      "desc_en": "Documentaries and interesting facts",
+      "ookbee_path": "/catalog/book/category/ความรู้ทั่วไป"
+    },
+    {
+      "id": "language",
+      "th": "ภาษาและการศึกษา",
+      "en": "Language & Education",
+      "desc_th": "การฝึกทักษะภาษาและตำราเรียน",
+      "desc_en": "Language skills and textbooks",
+      "ookbee_path": null
+    },
+    {
+      "id": "family",
+      "th": "ครอบครัวและเด็ก",
+      "en": "Family & Parenting",
+      "desc_th": "คู่มือการเลี้ยงลูกและความสัมพันธ์ในครอบครัว",
+      "desc_en": "Parenting guides and family relationships",
+      "ookbee_path": "/catalog/book/category/ครอบครัว/แม่และเด็ก"
+    },
+    {
+      "id": "classics",
+      "th": "วรรณกรรมคลาสสิก",
+      "en": "Classics",
+      "desc_th": "หนังสือทรงคุณค่าที่ผ่านกาลเวลา",
+      "desc_en": "Timeless valuable books",
+      "ookbee_path": null
+    }
+  ],
+  "books": [
+    {
+      "book_id": "sample-business-6190",
+      "title_th": "Rich Dad Poor Dad",
+      "title_en": "Rich Dad Poor Dad",
+      "author": "Robert Kiyosaki",
+      "cover_url": "",
+      "genre": "business",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-business-2896",
+      "title_th": "The Psychology of Money",
+      "title_en": "The Psychology of Money",
+      "author": "Morgan Housel",
+      "cover_url": "",
+      "genre": "business",
+      "rating": 4.6,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-business-299",
+      "title_th": "Think and Grow Rich",
+      "title_en": "Think and Grow Rich",
+      "author": "Napoleon Hill",
+      "cover_url": "",
+      "genre": "business",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-business-1537",
+      "title_th": "The Intelligent Investor",
+      "title_en": "The Intelligent Investor",
+      "author": "Benjamin Graham",
+      "cover_url": "",
+      "genre": "business",
+      "rating": 4.4,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-business-9688",
+      "title_th": "Zero to One",
+      "title_en": "Zero to One",
+      "author": "Peter Thiel",
+      "cover_url": "",
+      "genre": "business",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-psychology-7701",
+      "title_th": "Atomic Habits",
+      "title_en": "Atomic Habits",
+      "author": "James Clear",
+      "cover_url": "",
+      "genre": "psychology",
+      "rating": 4.8,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-psychology-4142",
+      "title_th": "Think Again",
+      "title_en": "Think Again",
+      "author": "Adam Grant",
+      "cover_url": "",
+      "genre": "psychology",
+      "rating": 4.4,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-psychology-1188",
+      "title_th": "Mindset",
+      "title_en": "Mindset",
+      "author": "Carol S. Dweck",
+      "cover_url": "",
+      "genre": "psychology",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-psychology-4597",
+      "title_th": "Thinking, Fast and Slow",
+      "title_en": "Thinking, Fast and Slow",
+      "author": "Daniel Kahneman",
+      "cover_url": "",
+      "genre": "psychology",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-psychology-9734",
+      "title_th": "คณิตศาสตร์ของความรัก",
+      "title_en": "The Mathematics of Love",
+      "author": "Hannah Fry",
+      "cover_url": "",
+      "genre": "psychology",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-romance-8124",
+      "title_th": "เพราะเราคู่กัน",
+      "title_en": "2gether",
+      "author": "JittiRain",
+      "cover_url": "",
+      "genre": "romance",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-romance-1247",
+      "title_th": "พี่ชายที่รัก",
+      "title_en": "Dear Brother",
+      "author": "สะมะเรีย",
+      "cover_url": "",
+      "genre": "romance",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-romance-2844",
+      "title_th": "บุพเพสันนิวาส",
+      "title_en": "Love Destiny",
+      "author": "รอมแพง",
+      "cover_url": "",
+      "genre": "romance",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-romance-4394",
+      "title_th": "The Notebook",
+      "title_en": "The Notebook",
+      "author": "Nicholas Sparks",
+      "cover_url": "",
+      "genre": "romance",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-romance-3881",
+      "title_th": "ลิขิตรักข้ามดวงดาว",
+      "title_en": "Star-Crossed Love",
+      "author": "ณารา",
+      "cover_url": "",
+      "genre": "romance",
+      "rating": 4.0,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-mystery-4224",
+      "title_th": "Gone Girl",
+      "title_en": "Gone Girl",
+      "author": "Gillian Flynn",
+      "cover_url": "",
+      "genre": "mystery",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-mystery-2541",
+      "title_th": "The Girl with the Dragon Tattoo",
+      "title_en": "The Girl with the Dragon Tattoo",
+      "author": "Stieg Larsson",
+      "cover_url": "",
+      "genre": "mystery",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-mystery-1167",
+      "title_th": "And Then There Were None",
+      "title_en": "And Then There Were None",
+      "author": "Agatha Christie",
+      "cover_url": "",
+      "genre": "mystery",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-mystery-4236",
+      "title_th": "The Da Vinci Code",
+      "title_en": "The Da Vinci Code",
+      "author": "Dan Brown",
+      "cover_url": "",
+      "genre": "mystery",
+      "rating": 3.9,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-mystery-2243",
+      "title_th": "คดีฆาตกรรมบนรถด่วน",
+      "title_en": "Murder on the Orient Express",
+      "author": "Agatha Christie",
+      "cover_url": "",
+      "genre": "mystery",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-fantasy-8067",
+      "title_th": "The Name of the Wind",
+      "title_en": "The Name of the Wind",
+      "author": "Patrick Rothfuss",
+      "cover_url": "",
+      "genre": "fantasy",
+      "rating": 4.6,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-fantasy-4149",
+      "title_th": "The Midnight Library",
+      "title_en": "The Midnight Library",
+      "author": "Matt Haig",
+      "cover_url": "",
+      "genre": "fantasy",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-fantasy-1243",
+      "title_th": "Harry Potter and the Sorcerer's Stone",
+      "title_en": "Harry Potter and the Sorcerer's Stone",
+      "author": "J.K. Rowling",
+      "cover_url": "",
+      "genre": "fantasy",
+      "rating": 4.8,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-fantasy-1334",
+      "title_th": "The Hobbit",
+      "title_en": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "cover_url": "",
+      "genre": "fantasy",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-fantasy-2846",
+      "title_th": "Eragon",
+      "title_en": "Eragon",
+      "author": "Christopher Paolini",
+      "cover_url": "",
+      "genre": "fantasy",
+      "rating": 4.0,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-scifi-7054",
+      "title_th": "Dune",
+      "title_en": "Dune",
+      "author": "Frank Herbert",
+      "cover_url": "",
+      "genre": "scifi",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-scifi-9657",
+      "title_th": "Project Hail Mary",
+      "title_en": "Project Hail Mary",
+      "author": "Andy Weir",
+      "cover_url": "",
+      "genre": "scifi",
+      "rating": 4.7,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-scifi-9052",
+      "title_th": "Ender's Game",
+      "title_en": "Ender's Game",
+      "author": "Orson Scott Card",
+      "cover_url": "",
+      "genre": "scifi",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-scifi-5790",
+      "title_th": "The Martian",
+      "title_en": "The Martian",
+      "author": "Andy Weir",
+      "cover_url": "",
+      "genre": "scifi",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-scifi-6213",
+      "title_th": "Neuromancer",
+      "title_en": "Neuromancer",
+      "author": "William Gibson",
+      "cover_url": "",
+      "genre": "scifi",
+      "rating": 3.9,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-history-3561",
+      "title_th": "Sapiens",
+      "title_en": "Sapiens",
+      "author": "Yuval Noah Harari",
+      "cover_url": "",
+      "genre": "history",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-history-3144",
+      "title_th": "Guns, Germs, and Steel",
+      "title_en": "Guns, Germs, and Steel",
+      "author": "Jared Diamond",
+      "cover_url": "",
+      "genre": "history",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-history-7439",
+      "title_th": "ประวัติศาสตร์ชาติไทย",
+      "title_en": "History of Thailand",
+      "author": "สุจิตต์ วงษ์เทศ",
+      "cover_url": "",
+      "genre": "history",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-history-9989",
+      "title_th": "A Short History of Nearly Everything",
+      "title_en": "A Short History of Nearly Everything",
+      "author": "Bill Bryson",
+      "cover_url": "",
+      "genre": "history",
+      "rating": 4.4,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-history-2078",
+      "title_th": "The Art of War",
+      "title_en": "The Art of War",
+      "author": "Sun Tzu",
+      "cover_url": "",
+      "genre": "history",
+      "rating": 4.0,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-biography-6950",
+      "title_th": "Steve Jobs",
+      "title_en": "Steve Jobs",
+      "author": "Walter Isaacson",
+      "cover_url": "",
+      "genre": "biography",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-biography-6912",
+      "title_th": "Educated",
+      "title_en": "Educated",
+      "author": "Tara Westover",
+      "cover_url": "",
+      "genre": "biography",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-biography-2338",
+      "title_th": "Becoming",
+      "title_en": "Becoming",
+      "author": "Michelle Obama",
+      "cover_url": "",
+      "genre": "biography",
+      "rating": 4.4,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-biography-924",
+      "title_th": "Elon Musk",
+      "title_en": "Elon Musk",
+      "author": "Ashlee Vance",
+      "cover_url": "",
+      "genre": "biography",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-biography-8840",
+      "title_th": "ชีวิตดี ๆ ที่ลงตัว",
+      "title_en": "Ikigai",
+      "author": "Héctor García",
+      "cover_url": "",
+      "genre": "biography",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-tech-7273",
+      "title_th": "Clean Code",
+      "title_en": "Clean Code",
+      "author": "Robert C. Martin",
+      "cover_url": "",
+      "genre": "tech",
+      "rating": 4.4,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-tech-3632",
+      "title_th": "The Pragmatic Programmer",
+      "title_en": "The Pragmatic Programmer",
+      "author": "David Thomas",
+      "cover_url": "",
+      "genre": "tech",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-tech-1256",
+      "title_th": "Designing Data-Intensive Applications",
+      "title_en": "Designing Data-Intensive Applications",
+      "author": "Martin Kleppmann",
+      "cover_url": "",
+      "genre": "tech",
+      "rating": 4.7,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-tech-9587",
+      "title_th": "Hands-On Machine Learning",
+      "title_en": "Hands-On Machine Learning",
+      "author": "Aurélien Géron",
+      "cover_url": "",
+      "genre": "tech",
+      "rating": 4.6,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-tech-7479",
+      "title_th": "AI 2041",
+      "title_en": "AI 2041",
+      "author": "Kai-Fu Lee",
+      "cover_url": "",
+      "genre": "tech",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-comics-9385",
+      "title_th": "วันพีซ",
+      "title_en": "One Piece",
+      "author": "Eiichiro Oda",
+      "cover_url": "",
+      "genre": "comics",
+      "rating": 4.9,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-comics-955",
+      "title_th": "นารูโตะ",
+      "title_en": "Naruto",
+      "author": "Masashi Kishimoto",
+      "cover_url": "",
+      "genre": "comics",
+      "rating": 4.6,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-comics-5021",
+      "title_th": "ดาบพิฆาตอสูร",
+      "title_en": "Demon Slayer",
+      "author": "Koyoharu Gotouge",
+      "cover_url": "",
+      "genre": "comics",
+      "rating": 4.7,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-comics-6881",
+      "title_th": "สแลมดังก์",
+      "title_en": "Slam Dunk",
+      "author": "Takehiko Inoue",
+      "cover_url": "",
+      "genre": "comics",
+      "rating": 4.8,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-comics-8716",
+      "title_th": "ผ่าพิภพไททัน",
+      "title_en": "Attack on Titan",
+      "author": "Hajime Isayama",
+      "cover_url": "",
+      "genre": "comics",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-ya-7453",
+      "title_th": "The Hunger Games",
+      "title_en": "The Hunger Games",
+      "author": "Suzanne Collins",
+      "cover_url": "",
+      "genre": "ya",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-ya-9822",
+      "title_th": "Divergent",
+      "title_en": "Divergent",
+      "author": "Veronica Roth",
+      "cover_url": "",
+      "genre": "ya",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-ya-4908",
+      "title_th": "Percy Jackson",
+      "title_en": "Percy Jackson",
+      "author": "Rick Riordan",
+      "cover_url": "",
+      "genre": "ya",
+      "rating": 4.4,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-ya-6547",
+      "title_th": "The Maze Runner",
+      "title_en": "The Maze Runner",
+      "author": "James Dashner",
+      "cover_url": "",
+      "genre": "ya",
+      "rating": 4.0,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-ya-4244",
+      "title_th": "ด.ญ. เรืองรอง",
+      "title_en": "The Bright Girl",
+      "author": "วินทร์ เลียววาริณ",
+      "cover_url": "",
+      "genre": "ya",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-food-3204",
+      "title_th": "Salt Fat Acid Heat",
+      "title_en": "Salt Fat Acid Heat",
+      "author": "Samin Nosrat",
+      "cover_url": "",
+      "genre": "food",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-food-6491",
+      "title_th": "ครัวคุณต๋อย",
+      "title_en": "Chef Toy's Kitchen",
+      "author": "หม่อมหลวงขวัญทิพย์",
+      "cover_url": "",
+      "genre": "food",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-food-3495",
+      "title_th": "The Food Lab",
+      "title_en": "The Food Lab",
+      "author": "J. Kenji López-Alt",
+      "cover_url": "",
+      "genre": "food",
+      "rating": 4.7,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-food-7104",
+      "title_th": "อร่อยทั่วไทย",
+      "title_en": "Delicious Thailand",
+      "author": "ท่องเที่ยวไทย",
+      "cover_url": "",
+      "genre": "food",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-food-3684",
+      "title_th": "Mastering the Art of French Cooking",
+      "title_en": "Mastering the Art of French Cooking",
+      "author": "Julia Child",
+      "cover_url": "",
+      "genre": "food",
+      "rating": 4.4,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-travel-9430",
+      "title_th": "เกิดมาเดินทาง",
+      "title_en": "Born to Travel",
+      "author": "นิ้วกลม",
+      "cover_url": "",
+      "genre": "travel",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-travel-8618",
+      "title_th": "Into the Wild",
+      "title_en": "Into the Wild",
+      "author": "Jon Krakauer",
+      "cover_url": "",
+      "genre": "travel",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-travel-7381",
+      "title_th": "Eat Pray Love",
+      "title_en": "Eat Pray Love",
+      "author": "Elizabeth Gilbert",
+      "cover_url": "",
+      "genre": "travel",
+      "rating": 3.9,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-travel-1115",
+      "title_th": "A Walk in the Woods",
+      "title_en": "A Walk in the Woods",
+      "author": "Bill Bryson",
+      "cover_url": "",
+      "genre": "travel",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-travel-9278",
+      "title_th": "ทริปในฝัน",
+      "title_en": "Dream Trip",
+      "author": "สมาคมท่องเที่ยว",
+      "cover_url": "",
+      "genre": "travel",
+      "rating": 4.0,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-religion-8188",
+      "title_th": "The Power of Now",
+      "title_en": "The Power of Now",
+      "author": "Eckhart Tolle",
+      "cover_url": "",
+      "genre": "religion",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-religion-7159",
+      "title_th": "พระไตรปิฎกฉบับสำหรับประชาชน",
+      "title_en": "Tipitaka for the Public",
+      "author": "สุชีพ ปุญญานุภาพ",
+      "cover_url": "",
+      "genre": "religion",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-religion-7311",
+      "title_th": "ธรรมะติดปีก",
+      "title_en": "Dhamma with Wings",
+      "author": "ว.วชิรเมธี",
+      "cover_url": "",
+      "genre": "religion",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-religion-4478",
+      "title_th": "Man's Search for Meaning",
+      "title_en": "Man's Search for Meaning",
+      "author": "Viktor E. Frankl",
+      "cover_url": "",
+      "genre": "religion",
+      "rating": 4.6,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-religion-3989",
+      "title_th": "The Alchemist",
+      "title_en": "The Alchemist",
+      "author": "Paulo Coelho",
+      "cover_url": "",
+      "genre": "religion",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-health-6332",
+      "title_th": "Why We Sleep",
+      "title_en": "Why We Sleep",
+      "author": "Matthew Walker",
+      "cover_url": "",
+      "genre": "health",
+      "rating": 4.4,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-health-3272",
+      "title_th": "The Body",
+      "title_en": "The Body",
+      "author": "Bill Bryson",
+      "cover_url": "",
+      "genre": "health",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-health-6069",
+      "title_th": "กินอย่างไรไม่ป่วย",
+      "title_en": "Eat Well Stay Healthy",
+      "author": "นพ.สมเกียรติ",
+      "cover_url": "",
+      "genre": "health",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-health-91",
+      "title_th": "Breath",
+      "title_en": "Breath",
+      "author": "James Nestor",
+      "cover_url": "",
+      "genre": "health",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-health-1721",
+      "title_th": "Outlive",
+      "title_en": "Outlive",
+      "author": "Peter Attia",
+      "cover_url": "",
+      "genre": "health",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-art-2355",
+      "title_th": "The War of Art",
+      "title_en": "The War of Art",
+      "author": "Steven Pressfield",
+      "cover_url": "",
+      "genre": "art",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-art-4010",
+      "title_th": "Steal Like an Artist",
+      "title_en": "Steal Like an Artist",
+      "author": "Austin Kleon",
+      "cover_url": "",
+      "genre": "art",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-art-5710",
+      "title_th": "Ways of Seeing",
+      "title_en": "Ways of Seeing",
+      "author": "John Berger",
+      "cover_url": "",
+      "genre": "art",
+      "rating": 4.0,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-art-7042",
+      "title_th": "ศิลปะแห่งการมีชีวิต",
+      "title_en": "The Art of Living",
+      "author": "ธีรยุทธ บุญมี",
+      "cover_url": "",
+      "genre": "art",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-art-6530",
+      "title_th": "Big Magic",
+      "title_en": "Big Magic",
+      "author": "Elizabeth Gilbert",
+      "cover_url": "",
+      "genre": "art",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-general-3561",
+      "title_th": "Sapiens",
+      "title_en": "Sapiens",
+      "author": "Yuval Noah Harari",
+      "cover_url": "",
+      "genre": "general",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-general-5806",
+      "title_th": "Freakonomics",
+      "title_en": "Freakonomics",
+      "author": "Steven D. Levitt",
+      "cover_url": "",
+      "genre": "general",
+      "rating": 4.0,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-general-2534",
+      "title_th": "Factfulness",
+      "title_en": "Factfulness",
+      "author": "Hans Rosling",
+      "cover_url": "",
+      "genre": "general",
+      "rating": 4.4,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-general-7550",
+      "title_th": "Cosmos",
+      "title_en": "Cosmos",
+      "author": "Carl Sagan",
+      "cover_url": "",
+      "genre": "general",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-general-9853",
+      "title_th": "เรื่องเล่าจากร่างกาย",
+      "title_en": "Stories from the Body",
+      "author": "นพ.สุรชัย",
+      "cover_url": "",
+      "genre": "general",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-language-3223",
+      "title_th": "English Grammar in Use",
+      "title_en": "English Grammar in Use",
+      "author": "Raymond Murphy",
+      "cover_url": "",
+      "genre": "language",
+      "rating": 4.6,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-language-138",
+      "title_th": "ภาษาอังกฤษง่ายนิดเดียว",
+      "title_en": "English is Easy",
+      "author": "ครูดิว",
+      "cover_url": "",
+      "genre": "language",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-language-8449",
+      "title_th": "Fluent Forever",
+      "title_en": "Fluent Forever",
+      "author": "Gabriel Wyner",
+      "cover_url": "",
+      "genre": "language",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-language-6844",
+      "title_th": "The Elements of Style",
+      "title_en": "The Elements of Style",
+      "author": "Strunk & White",
+      "cover_url": "",
+      "genre": "language",
+      "rating": 4.4,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-language-8090",
+      "title_th": "Word Power Made Easy",
+      "title_en": "Word Power Made Easy",
+      "author": "Norman Lewis",
+      "cover_url": "",
+      "genre": "language",
+      "rating": 4.5,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-family-3588",
+      "title_th": "How to Talk So Kids Will Listen",
+      "title_en": "How to Talk So Kids Will Listen",
+      "author": "Adele Faber",
+      "cover_url": "",
+      "genre": "family",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-family-5441",
+      "title_th": "The Whole-Brain Child",
+      "title_en": "The Whole-Brain Child",
+      "author": "Daniel J. Siegel",
+      "cover_url": "",
+      "genre": "family",
+      "rating": 4.4,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-family-2410",
+      "title_th": "เลี้ยงลูกอย่างไรให้เป็นคนดี",
+      "title_en": "Raise Good Children",
+      "author": "ดร.สุริยเดว",
+      "cover_url": "",
+      "genre": "family",
+      "rating": 4.2,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-family-5336",
+      "title_th": "Positive Discipline",
+      "title_en": "Positive Discipline",
+      "author": "Jane Nelsen",
+      "cover_url": "",
+      "genre": "family",
+      "rating": 4.1,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-family-2115",
+      "title_th": "วินัยเชิงบวก",
+      "title_en": "Positive Parenting",
+      "author": "Rebecca Eanes",
+      "cover_url": "",
+      "genre": "family",
+      "rating": 4.0,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-classics-9353",
+      "title_th": "1984",
+      "title_en": "1984",
+      "author": "George Orwell",
+      "cover_url": "",
+      "genre": "classics",
+      "rating": 4.7,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-classics-6036",
+      "title_th": "To Kill a Mockingbird",
+      "title_en": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "cover_url": "",
+      "genre": "classics",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-classics-3971",
+      "title_th": "Pride and Prejudice",
+      "title_en": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "cover_url": "",
+      "genre": "classics",
+      "rating": 4.3,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-classics-8360",
+      "title_th": "The Great Gatsby",
+      "title_en": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "cover_url": "",
+      "genre": "classics",
+      "rating": 3.9,
+      "source": "sample"
+    },
+    {
+      "book_id": "sample-classics-7210",
+      "title_th": "สี่แผ่นดิน",
+      "title_en": "Four Reigns",
+      "author": "ม.ร.ว.คึกฤทธิ์ ปราโมช",
+      "cover_url": "",
+      "genre": "classics",
+      "rating": 4.6,
+      "source": "sample"
+    }
+  ],
+  "faq": [
+    {
+      "q_th": "ใช้เวลานานแค่ไหนในการรับคำแนะนำหนังสือ?",
+      "q_en": "How long does it take to receive book recommendations?",
+      "a_th": "ระบบจะเริ่มแนะนำหนังสือทันทีหลังจากคุณเลือกหมวดหมู่ที่ชื่นชอบ และจะยิ่งแม่นยำขึ้นเมื่อคุณให้คะแนนหนังสือมากขึ้น (แนะนำอย่างน้อย 20 เล่ม)",
+      "a_en": "The system starts recommending books immediately after you select your favorite genres, and becomes more accurate as you rate more books (recommended at least 20)."
+    },
+    {
+      "q_th": "หากได้รับคำแนะนำที่ไม่ตรงใจ ควรทำอย่างไร?",
+      "q_en": "What should I do if I receive irrelevant recommendations?",
+      "a_th": "คุณสามารถกดปุ่ม \"ไม่สนใจ\" บนหนังสือที่ไม่ตรงใจ ระบบจะเรียนรู้และปรับปรุงคำแนะนำให้ดีขึ้นในครั้งต่อไป",
+      "a_en": "You can click the \"Not Interested\" button on irrelevant books. The system will learn and improve recommendations in the future."
+    },
+    {
+      "q_th": "ฉันสามารถตรวจสอบสถานะคำแนะนำหนังสือได้ที่ไหน?",
+      "q_en": "How can I check the status of my book recommendations?",
+      "a_th": "ไปที่เมนู \"สำรวจ > แนะนำสำหรับคุณ\" เพื่อดูคำแนะนำล่าสุดของคุณ",
+      "a_en": "Go to \"Browse > Recommendations\" to see your latest recommendations."
+    },
+    {
+      "q_th": "ฉันสามารถยกเลิกหรือลบหนังสือออกจากคอลเลกชันได้หรือไม่?",
+      "q_en": "Can I remove books from my collection?",
+      "a_th": "ได้ คุณสามารถลบหนังสือออกจากชั้นหนังสือได้ตลอดเวลาในหน้า \"หนังสือของฉัน\"",
+      "a_en": "Yes, you can remove books from your shelves anytime on the \"My Books\" page."
+    },
+    {
+      "q_th": "ติดต่อฝ่ายสนับสนุนได้อย่างไร?",
+      "q_en": "How can I contact customer support?",
+      "a_th": "คุณสามารถติดต่อเราได้ที่ team@greedroute.com หรือโทร +66 2 123 4567",
+      "a_en": "You can reach us at team@greedroute.com or call +66 2 123 4567"
+    },
+    {
+      "q_th": "มีโปรโมชันหรือส่วนลดพิเศษสำหรับผู้ใช้ Greed Route หรือไม่?",
+      "q_en": "Are there special offers for Greed Route users?",
+      "a_th": "เรามีโปรโมชันพิเศษเป็นระยะ ๆ ติดตามได้ที่หน้าข่าวสารหรือสมัครรับจดหมายข่าว",
+      "a_en": "We have periodic special promotions. Follow our News page or subscribe to our newsletter."
+    },
+    {
+      "q_th": "Greed Route มั่นใจในคุณภาพคำแนะนำหนังสือได้อย่างไร?",
+      "q_en": "How does Greed Route ensure recommendation quality?",
+      "a_th": "เราใช้อัลกอริทึม Collaborative Filtering และ Content-Based Filtering ผสมผสานกัน พร้อมปรับปรุงจากฟีดแบ็กของผู้ใช้อย่างต่อเนื่อง",
+      "a_en": "We use a combination of Collaborative Filtering and Content-Based Filtering algorithms, continuously improved with user feedback."
+    }
+  ],
+  "news": [
+    {
+      "title_th": "10 หนังสือที่ต้องอ่านในปี 2026",
+      "title_en": "10 Must-Read Books of 2026",
+      "desc_th": "รวมหนังสือที่ได้รับการคัดเลือกจากผู้เชี่ยวชาญและนักอ่านทั่วโลก",
+      "desc_en": "A curated list from experts and readers worldwide",
+      "date": "10 เม.ย. 2569"
+    },
+    {
+      "title_th": "บทสัมภาษณ์: ปราบดา หยุ่น กับนวนิยายเรื่องใหม่",
+      "title_en": "Interview: Prabda Yoon on His New Novel",
+      "desc_th": "นักเขียนชื่อดังเปิดใจเรื่องแรงบันดาลใจและกระบวนการเขียน",
+      "desc_en": "The famous author opens up about inspiration and writing process",
+      "date": "8 เม.ย. 2569"
+    },
+    {
+      "title_th": "AI กำลังเปลี่ยนวงการหนังสืออย่างไร?",
+      "title_en": "How AI is Transforming the Book Industry",
+      "desc_th": "เจาะลึกว่าปัญญาประดิษฐ์มีบทบาทในการแนะนำหนังสือ การเขียน และการจัดพิมพ์อย่างไร",
+      "desc_en": "Exploring how AI plays a role in book recommendations, writing, and publishing",
+      "date": "5 เม.ย. 2569"
+    },
+    {
+      "title_th": "รีวิว: \"ชีวิตอันเหลือเชื่อของ...\" โดย ภูมิภาค",
+      "title_en": "Review: \"The Incredible Life of...\" by Phumiphak",
+      "desc_th": "หนังสือที่ทำให้คุณหัวเราะและร้องไห้在เวลาเดียวกัน",
+      "desc_en": "A book that makes you laugh and cry at the same time",
+      "date": "3 เม.ย. 2569"
+    },
+    {
+      "title_th": "งานสัปดาห์หนังสือแห่งชาติ 2569",
+      "title_en": "National Book Week 2026",
+      "desc_th": "รวมไฮไลท์และโปรโมชันพิเศษจากงาน",
+      "desc_en": "Highlights and special promotions from the event",
+      "date": "1 เม.ย. 2569"
+    }
+  ],
+  "discussions": [
+    {
+      "title_th": "ทำไม Atomic Habits ถึงเปลี่ยนชีวิตคนได้?",
+      "title_en": "Why Can Atomic Habits Change Lives?",
+      "group": "Self-Help Lovers",
+      "replies": 45,
+      "date": "วันนี้"
+    },
+    {
+      "title_th": "หนังสือแฟนตาซีเรื่องไหนที่ดีที่สุดตลอดกาล?",
+      "title_en": "What Is the Best Fantasy Book of All Time?",
+      "group": "Fantasy Readers TH",
+      "replies": 128,
+      "date": "เมื่อวาน"
+    },
+    {
+      "title_th": "แนะนำนิยายไทยที่ควรอ่านก่อนตาย",
+      "title_en": "Must-Read Thai Novels Before You Die",
+      "group": "Thai Literature",
+      "replies": 67,
+      "date": "2 วันที่แล้ว"
+    },
+    {
+      "title_th": "Clean Code vs The Pragmatic Programmer?",
+      "title_en": "Clean Code vs The Pragmatic Programmer?",
+      "group": "Dev Bookworms",
+      "replies": 34,
+      "date": "3 วันที่แล้ว"
+    },
+    {
+      "title_th": "ใครอ่าน Dune จบแล้วบ้าง? มาพูดคุยกัน!",
+      "title_en": "Who Finished Dune? Let's Discuss!",
+      "group": "Sci-Fi Thailand",
+      "replies": 89,
+      "date": "4 วันที่แล้ว"
+    }
+  ],
+  "quotes": [
+    {
+      "text_th": "\"การอ่านหนังสือเล่มดีเล่มหนึ่ง เปรียบเสมือนการสนทนากับจิตใจที่ยิ่งใหญ่ที่สุดของศตวรรษที่ผ่านมา\"",
+      "text_en": "\"Reading a great book is like having a conversation with the finest minds of past centuries.\"",
+      "author": "René Descartes",
+      "book": "Discourse on the Method",
+      "likes": 1243
+    },
+    {
+      "text_th": "\"คนที่ไม่อ่านหนังสือ ไม่ได้มีข้อได้เปรียบเหนือคนที่อ่านไม่ออกเลย\"",
+      "text_en": "\"A person who won't read has no advantage over one who can't read.\"",
+      "author": "Mark Twain",
+      "book": "",
+      "likes": 987
+    },
+    {
+      "text_th": "\"หนังสือเป็นกระจกวิเศษ: หากคนโง่มองเข้าไป คุณจะไม่คาดหวังว่าอัจฉริยะจะมองกลับออกมา\"",
+      "text_en": "\"A book is a mirror: if a fool peers in, you can't expect a genius to look back.\"",
+      "author": "J.K. Rowling",
+      "book": "",
+      "likes": 856
+    },
+    {
+      "text_th": "\"ยิ่งฉันอ่านมากเท่าไร ยิ่งรู้มากเท่านั้น ยิ่งรู้มากเท่าไร ยิ่งไปได้ไกลมากเท่านั้น\"",
+      "text_en": "\"The more that you read, the more things you will know. The more that you learn, the more places you'll go.\"",
+      "author": "Dr. Seuss",
+      "book": "I Can Read with My Eyes Shut!",
+      "likes": 2145
+    }
+  ],
+  "groups": [
+    {
+      "name_th": "นักอ่านจิตวิทยา",
+      "name_en": "Psychology Readers",
+      "members": 12540,
+      "icon": "🧠"
+    },
+    {
+      "name_th": "คนรักนิยาย",
+      "name_en": "Fiction Lovers",
+      "members": 8930,
+      "icon": "📖"
+    },
+    {
+      "name_th": "แฟนตาซีไทยแลนด์",
+      "name_en": "Fantasy Thailand",
+      "members": 6720,
+      "icon": "🧙"
+    },
+    {
+      "name_th": "Dev Bookworms",
+      "name_en": "Dev Bookworms",
+      "members": 4510,
+      "icon": "💻"
+    },
+    {
+      "name_th": "มังงะคลับ",
+      "name_en": "Manga Club",
+      "members": 15200,
+      "icon": "📚"
+    },
+    {
+      "name_th": "Sci-Fi Thailand",
+      "name_en": "Sci-Fi Thailand",
+      "members": 3890,
+      "icon": "🚀"
+    },
+    {
+      "name_th": "ชมรมนักเขียน",
+      "name_en": "Writers Circle",
+      "members": 2340,
+      "icon": "✍️"
+    },
+    {
+      "name_th": "คนรักสุขภาพ",
+      "name_en": "Health & Wellness",
+      "members": 5670,
+      "icon": "💪"
+    }
+  ]
+}
