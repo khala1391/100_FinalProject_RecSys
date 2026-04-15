@@ -1,0 +1,60 @@
+% === header.tex for Greed Route Report ===
+% Adapted from CU IS thesis header for pandoc markdown -> PDF
+
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\usepackage{ucharclasses}
+
+% --- Page layout ---
+\usepackage[letterpaper, top=2.54cm, bottom=2.54cm, left=3.54cm, right=2.54cm]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+% --- Better tables ---
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+
+% --- Allow wide tables/figures to shrink to fit page ---
+\usepackage{adjustbox}
+\let\oldtabular\tabular
+\let\endoldtabular\endtabular
+\renewenvironment{tabular}[1]{%
+  \adjustbox{max width=\textwidth}{\oldtabular{#1}}%
+}{%
+  \endoldtabular\endadjustbox%
+}
+
+% --- Languages ---
+\setmainlanguage{english}
+\setotherlanguage{thai}
+
+% --- Fonts ---
+\newfontfamily\englishfont{TH Sarabun New}
+\newfontfamily\thaifont[Script=Thai]{TH Sarabun New}
+\setmonofont{Consolas}[Scale=0.85]
+
+% --- Font size 16pt body (CU standard) ---
+\newcommand{\setdocfontsize}[1]{%
+    \fontsize{#1}{1.2\baselineskip}\selectfont
+}
+\setdocfontsize{16pt}
+
+% --- Automatic Thai/English font switching ---
+\setDefaultTransitions{\englishfont}{\englishfont}
+\setTransitionTo{Thai}{\thaifont}
+\setTransitionFrom{Thai}{\englishfont}
+
+% --- Thai line breaking ---
+\XeTeXlinebreaklocale "th_TH"
+\XeTeXlinebreakskip = 0pt plus 1pt
+
+% --- Paragraph ---
+\setlength{\parindent}{0.01cm}
+\setlength{\parskip}{10pt plus 1pt minus 1pt}
+
+% --- Widow/orphan control ---
+\widowpenalty=10000
+\clubpenalty=10000
