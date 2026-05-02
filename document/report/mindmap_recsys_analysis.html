@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recommender System — Mind Map Analysis</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0f1117;
+    color: #e0e0e0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  #controls {
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+    z-index: 100; display: flex; gap: 10px; align-items: center;
+    background: rgba(20,22,30,0.85); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+    padding: 8px 18px; font-size: 13px;
+  }
+  #controls button {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+    color: #ccc; padding: 5px 14px; border-radius: 8px; cursor: pointer;
+    font-size: 12px; transition: all .2s;
+  }
+  #controls button:hover { background: rgba(255,125,41,0.25); color: #FF7D29; }
+  #title-bar {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    z-index: 100; text-align: center;
+    background: rgba(20,22,30,0.85); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+    padding: 10px 28px;
+  }
+  #title-bar h3 { font-size: 14px; font-weight: 600; color: #FF7D29; }
+  #title-bar p { font-size: 11px; color: #888; margin-top: 2px; }
+
+  svg { width: 100%; height: 100%; }
+
+  .link {
+    fill: none;
+    stroke-width: 2;
+    opacity: 0.5;
+  }
+
+  .node-group { cursor: pointer; }
+  .node-group:hover .node-circle { filter: brightness(1.3) drop-shadow(0 0 8px rgba(255,125,41,0.4)); }
+
+  .node-label {
+    font-family: 'Inter', sans-serif;
+    fill: #e0e0e0;
+    pointer-events: none;
+  }
+
+  .tooltip {
+    position: fixed;
+    background: rgba(20,22,30,0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,125,41,0.3);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #ccc;
+    max-width: 280px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .2s;
+    z-index: 200;
+  }
+  .tooltip .tt-title { font-weight: 700; color: #FF7D29; margin-bottom: 4px; font-size: 13px; }
+
+  .legend {
+    position: fixed; bottom: 60px; right: 16px; z-index: 100;
+    background: rgba(20,22,30,0.85); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+    padding: 14px 18px; font-size: 11px;
+  }
+  .legend-title { font-weight: 700; color: #FF7D29; margin-bottom: 8px; font-size: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div id="controls">
+  <span style="color:#FF7D29;font-weight:600;">Mind Map</span>
+  <button onclick="zoomIn()">＋ Zoom In</button>
+  <button onclick="zoomOut()">− Zoom Out</button>
+  <button onclick="resetView()">⟳ Reset</button>
+  <button onclick="toggleLabels()">Toggle Labels</button>
+  <button onclick="expandAll()">Expand All</button>
+  <button onclick="collapseAll()">Collapse All</button>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="legend">
+  <div class="legend-title">Branch Legend</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#FF6B6B"></div> Metrics</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#FFA94D"></div> Challenges</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#69DB7C"></div> Types</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#74C0FC"></div> Deep Learning Models</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#DA77F2"></div> Tools &amp; Environment</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#FFD43B"></div> Project-Specific</div>
+</div>
+
+<div id="title-bar">
+  <h3>Recommender System — Analysis Mind Map</h3>
+  <p>Book Recommendation Platform · 2603522 RecSys Final Project</p>
+</div>
+
+<svg id="svg"></svg>
+
+<script>
+// ─── Mind Map Data ────────────────────────────────────────────────
+const data = {
+  name: "Recommender\nSystem",
+  description: "Core analysis of our book recommendation platform covering metrics, challenges, types, deep learning models, and tools.",
+  color: "#FF7D29",
+  children: [
+    {
+      name: "1. Metrics",
+      color: "#FF6B6B",
+      description: "Evaluation metrics for measuring recommendation quality and business impact.",
+      children: [
+        {
+          name: "Predictive",
+          color: "#FF6B6B",
+          description: "Accuracy of predicted ratings vs actual user ratings.",
+          children: [
+            { name: "MAE", color: "#FF6B6B", description: "Mean Absolute Error — average magnitude of errors in predictions." },
+            { name: "RMSE", color: "#FF6B6B", description: "Root Mean Square Error — penalizes larger errors more than MAE." },
+            { name: "Precision", color: "#FF6B6B", description: "Fraction of recommended items that are relevant." },
+            { name: "Recall", color: "#FF6B6B", description: "Fraction of relevant items that are recommended." }
+          ]
+        },
+        {
+          name: "Ranking",
+          color: "#FF6B6B",
+          description: "Quality of the ordering/ranking of recommended items.",
+          children: [
+            { name: "NDCG", color: "#FF6B6B", description: "Normalized Discounted Cumulative Gain — measures ranking quality with position discount." },
+            { name: "MRR", color: "#FF6B6B", description: "Mean Reciprocal Rank — average of reciprocal ranks of the first relevant item." },
+            { name: "MAP", color: "#FF6B6B", description: "Mean Average Precision — average precision across all recall levels." }
+          ]
+        },
+        {
+          name: "Behavioral",
+          color: "#FF6B6B",
+          description: "User experience and content exploration metrics.",
+          children: [
+            { name: "Diversity", color: "#FF6B6B", description: "How varied the recommended items are in terms of genres and topics." },
+            { name: "Novelty", color: "#FF6B6B", description: "How new/unknown recommended items are to the user." },
+            { name: "Serendipity", color: "#FF6B6B", description: "Unexpected but pleasantly surprising recommendations." }
+          ]
+        },
+        {
+          name: "Business",
+          color: "#FF6B6B",
+          description: "Commercial impact and business-oriented metrics.",
+          children: [
+            { name: "CTR", color: "#FF6B6B", description: "Click-Through Rate — ratio of users who click on a recommendation." },
+            { name: "Conversion\nRate", color: "#FF6B6B", description: "Percentage of recommendation clicks that lead to a purchase/read action." },
+            { name: "Revenue", color: "#FF6B6B", description: "Total revenue generated from recommended items." }
+          ]
+        }
+      ]
+    },
+    {
+      name: "2. Challenges",
+      color: "#FFA94D",
+      description: "Key challenges in building and deploying recommender systems.",
+      children: [
+        { name: "Data\nSparsity", color: "#FFA94D", description: "Most users rate only a small fraction of items, leading to sparse user-item matrices." },
+        { name: "Cold Start\nProblem", color: "#FFA94D", description: "Difficulty recommending for new users or new items with no history. Our project addresses this with a 20-genre checkbox onboarding." },
+        { name: "User\nFeedback", color: "#FFA94D", description: "Distinguishing between explicit ratings and implicit signals (dwell time, scroll depth, clicks)." },
+        { name: "Explain-\nability", color: "#FFA94D", description: "Providing transparent reasons for why an item was recommended." },
+        { name: "Interpret-\nability", color: "#FFA94D", description: "Understanding the internal model decisions and feature importance." },
+        { name: "Scalability", color: "#FFA94D", description: "Handling large-scale data and real-time recommendation serving efficiently." }
+      ]
+    },
+    {
+      name: "3. Types",
+      color: "#69DB7C",
+      description: "Different algorithmic approaches to generating recommendations.",
+      children: [
+        { name: "CF", color: "#69DB7C", description: "Collaborative Filtering — recommends based on similar users' behavior patterns. Used in our project." },
+        { name: "CBF", color: "#69DB7C", description: "Content-Based Filtering — recommends items similar to what the user liked based on item features (genre, tags, author). Used in our project." },
+        { name: "HBF", color: "#69DB7C", description: "Hybrid-Based Filtering — combines CF and CBF for better accuracy and coverage. Primary approach in our project." },
+        { name: "Knowledge-\nBased", color: "#69DB7C", description: "Uses explicit domain knowledge and user requirements to make recommendations." },
+        { name: "Context-\nAware", color: "#69DB7C", description: "Incorporates contextual information (time, device, location) into recommendations." },
+        { name: "Popularity-\nBased", color: "#69DB7C", description: "Recommends trending/top-rated items. Used as a baseline in our project." }
+      ]
+    },
+    {
+      name: "4. Deep Learning\nModels",
+      color: "#74C0FC",
+      description: "Neural network architectures applicable to recommender systems.",
+      children: [
+        { name: "CNN", color: "#74C0FC", description: "Convolutional Neural Networks — extract local patterns from item features (e.g., book covers, text)." },
+        { name: "RNN", color: "#74C0FC", description: "Recurrent Neural Networks — model sequential user behavior and reading patterns." },
+        { name: "LSTM", color: "#74C0FC", description: "Long Short-Term Memory — captures long-term dependencies in user interaction sequences." },
+        { name: "GRU", color: "#74C0FC", description: "Gated Recurrent Units — lightweight alternative to LSTM for sequence modeling." },
+        { name: "GNN", color: "#74C0FC", description: "Graph Neural Networks — model user-item interaction graphs for rich relational learning." },
+        { name: "TRN", color: "#74C0FC", description: "Transformer Networks — self-attention mechanism for capturing complex user preferences." },
+        { name: "AE", color: "#74C0FC", description: "Autoencoders — learn compact user/item representations for collaborative filtering." },
+        { name: "GAN", color: "#74C0FC", description: "Generative Adversarial Networks — generate synthetic data and augment training sets." }
+      ]
+    },
+    {
+      name: "5. Tools &\nEnvironment",
+      color: "#DA77F2",
+      description: "Development tools, languages, and environments used in the project.",
+      children: [
+        {
+          name: "Languages",
+          color: "#DA77F2",
+          description: "Programming languages for data analysis and model development.",
+          children: [
+            { name: "Python", color: "#DA77F2", description: "Primary language — Pandas, NumPy, Scikit-learn, Surprise, TensorFlow/PyTorch." },
+            { name: "R", color: "#DA77F2", description: "Statistical computing and visualization for exploratory analysis." }
+          ]
+        },
+        {
+          name: "Environments",
+          color: "#DA77F2",
+          description: "Development and execution environments.",
+          children: [
+            { name: "Jupyter\nNotebooks", color: "#DA77F2", description: "Interactive notebooks for data exploration and model prototyping. Used in our project." },
+            { name: "Google\nColab", color: "#DA77F2", description: "Cloud-based Jupyter with free GPU/TPU access for training models." },
+            { name: "Kaggle\nKernels", color: "#DA77F2", description: "Kaggle's notebook environment with access to datasets and competitions." }
+          ]
+        }
+      ]
+    },
+    {
+      name: "6. Project\nSpecific",
+      color: "#FFD43B",
+      description: "Features and data specific to our Book Recommendation Platform.",
+      children: [
+        {
+          name: "Data\nEntities",
+          color: "#FFD43B",
+          description: "Core data entities in our system.",
+          children: [
+            { name: "50+ Books", color: "#FFD43B", description: "Thai/English titles with authors, ISBNs, descriptions, covers, avg_rating, view_count." },
+            { name: "Users", color: "#FFD43B", description: "Demographics: age, sex, occupation, education, hobbies. Age groups: young_adult, adult, senior." },
+            { name: "49 Tags", color: "#FFD43B", description: "bestseller, award-winner, adapted-to-film, thai-author, lgbtq, diverse-voices, trending, etc." },
+            { name: "Genres", color: "#FFD43B", description: "Fiction, Non-Fiction, Sci-Fi, Fantasy, Romance, Mystery, History, Biography, etc." },
+            { name: "Events", color: "#FFD43B", description: "genre_view, preview, view_details, rating, review — with dwell_time and scroll_depth." }
+          ]
+        },
+        {
+          name: "Web App\nFeatures",
+          color: "#FFD43B",
+          description: "User-facing features of the recommendation platform.",
+          children: [
+            { name: "My Books\nShelves", color: "#FFD43B", description: "4 shelves: To-Read, Currently-Reading, Read, Did-Not-Finish." },
+            { name: "Personalized\nRecs", color: "#FFD43B", description: "Requires 20+ rated books. Filter by shelf or genre." },
+            { name: "Choice\nAwards", color: "#FFD43B", description: "Annual voted awards by category with nominees and winners." },
+            { name: "Community", color: "#FFD43B", description: "Groups, Discussions, Quotes — social reading features." },
+            { name: "Cold Start\nOnboarding", color: "#FFD43B", description: "First-time popup with 20 genre checkboxes to bootstrap preferences." }
+          ]
+        },
+        {
+          name: "Algorithms\nUsed",
+          color: "#FFD43B",
+          description: "Recommendation algorithms implemented in the project.",
+          children: [
+            { name: "Hybrid", color: "#FFD43B", description: "Combines content-based and collaborative filtering approaches." },
+            { name: "Content-\nBased", color: "#FFD43B", description: "Uses book features: genre, tags, publisher, author." },
+            { name: "Collab.\nFiltering", color: "#FFD43B", description: "Leverages user rating behavior patterns and similarities." },
+            { name: "Popular-\nBased", color: "#FFD43B", description: "Baseline — recommends trending/top-rated books." }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+// ─── D3-like force layout (vanilla JS) ─────────────────────────────
+const svg = document.getElementById("svg");
+const tooltip = document.getElementById("tooltip");
+const W = window.innerWidth, H = window.innerHeight;
+let zoom = 1, panX = 0, panY = 0;
+let showLabels = true;
+
+// Flatten tree into nodes & links
+let nodeId = 0;
+const nodes = [], links = [];
+function flatten(d, parent, depth) {
+  d.id = nodeId++;
+  d.depth = depth;
+  d.parent = parent;
+  d._children = d.children || null;
+  d.collapsed = depth > 2;
+  nodes.push(d);
+  if (parent !== null) links.push({ source: parent, target: d.id });
+  if (d.children && !d.collapsed) {
+    d.children.forEach(c => flatten(c, d.id, depth + 1));
+  } else if (d._children && d.collapsed) {
+    // keep _children reference but don't flatten
+  }
+}
+
+// Rebuild the flat arrays
+function rebuild() {
+  nodes.length = 0; links.length = 0; nodeId = 0;
+  flattenVisible(data, null, 0);
+}
+function flattenVisible(d, parent, depth) {
+  d.id = nodeId++;
+  d.depth = depth;
+  d.parent = parent;
+  nodes.push(d);
+  if (parent !== null) links.push({ source: parent, target: d.id });
+  if (d._children && !d.collapsed) {
+    d._children.forEach(c => flattenVisible(c, d.id, depth + 1));
+  }
+}
+
+// Layout: radial tree
+function computeLayout() {
+  const root = nodes[0];
+  root.x = W / 2; root.y = H / 2;
+  layoutChildren(root, 0, Math.PI * 2, 0);
+}
+
+function layoutChildren(node, startAngle, sweep, depth) {
+  const children = getVisibleChildren(node);
+  if (!children || children.length === 0) return;
+
+  const radius = depth === 0 ? 200 : (depth === 1 ? 160 : (depth === 2 ? 120 : 90));
+  const padding = 0.04;
+  const totalPadding = padding * (children.length - 1);
+  const availableSweep = sweep - totalPadding;
+  const anglePerChild = availableSweep / children.length;
+
+  children.forEach((child, i) => {
+    const angle = startAngle + i * (anglePerChild + padding) + anglePerChild / 2;
+    child.x = node.x + Math.cos(angle) * radius;
+    child.y = node.y + Math.sin(angle) * radius;
+    child.angle = angle;
+    const childSweep = anglePerChild;
+    layoutChildren(child, angle - childSweep / 2, childSweep, depth + 1);
+  });
+}
+
+function getVisibleChildren(node) {
+  if (node.collapsed || !node._children) return [];
+  return node._children.map(c => nodes.find(n => n.name === c.name && n.parent === node.id)).filter(Boolean);
+}
+
+// ─── Rendering ─────────────────────────────────────────────────────
+function render() {
+  rebuild();
+  computeLayout();
+
+  let html = `<g transform="translate(${panX},${panY}) scale(${zoom})">`;
+
+  // Links
+  links.forEach(l => {
+    const s = nodes[l.source], t = nodes[l.target];
+    if (!s || !t) return;
+    const mx = (s.x + t.x) / 2, my = (s.y + t.y) / 2;
+    // Curved path
+    const dx = t.x - s.x, dy = t.y - s.y;
+    const cx = s.x + dx * 0.5 - dy * 0.15;
+    const cy = s.y + dy * 0.5 + dx * 0.15;
+    html += `<path class="link" d="M${s.x},${s.y} Q${cx},${cy} ${t.x},${t.y}" stroke="${t.color || '#555'}" />`;
+  });
+
+  // Nodes
+  nodes.forEach(n => {
+    const r = n.depth === 0 ? 40 : (n.depth === 1 ? 24 : (n.depth === 2 ? 16 : 11));
+    const hasChildren = n._children && n._children.length > 0;
+    const isCollapsed = n.collapsed && hasChildren;
+    const strokeW = n.depth === 0 ? 3 : 2;
+    const fill = n.depth === 0 ? n.color : (isCollapsed ? n.color : 'rgba(15,17,23,0.9)');
+    const stroke = n.color || '#555';
+    const badge = isCollapsed ? `<circle cx="${n.x + r * 0.7}" cy="${n.y - r * 0.7}" r="7" fill="#FF7D29" stroke="#0f1117" stroke-width="1.5"/>
+      <text x="${n.x + r * 0.7}" y="${n.y - r * 0.7 + 3.5}" text-anchor="middle" fill="#0f1117" font-size="8" font-weight="700">${n._children.length}</text>` : '';
+
+    html += `<g class="node-group" data-id="${n.id}" onmouseenter="showTip(event,${n.id})" onmouseleave="hideTip()" onclick="toggleNode(${n.id})">
+      <circle class="node-circle" cx="${n.x}" cy="${n.y}" r="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeW}"/>
+      ${badge}`;
+
+    if (showLabels) {
+      const fontSize = n.depth === 0 ? 13 : (n.depth === 1 ? 11.5 : (n.depth === 2 ? 10.5 : 9.5));
+      const labelLines = n.name.split('\n');
+      const ly = n.y + r + 14;
+      labelLines.forEach((line, li) => {
+        html += `<text class="node-label" x="${n.x}" y="${ly + li * (fontSize + 2)}" text-anchor="middle" font-size="${fontSize}" font-weight="${n.depth <= 1 ? '700' : '500'}" fill="${n.depth === 0 ? '#FF7D29' : '#ddd'}">${escHtml(line)}</text>`;
+      });
+    }
+
+    html += `</g>`;
+  });
+
+  html += `</g>`;
+  svg.innerHTML = html;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ─── Interaction ──────────────────────────────────────────────────
+function toggleNode(id) {
+  const node = nodes.find(n => n.id === id);
+  if (!node || !node._children || node._children.length === 0) return;
+  node.collapsed = !node.collapsed;
+  // propagate collapse to children
+  if (node.collapsed) {
+    collapseDescendants(node);
+  }
+  render();
+}
+
+function collapseDescendants(node) {
+  if (!node._children) return;
+  node._children.forEach(c => { c.collapsed = true; collapseDescendants(c); });
+}
+
+function showTip(e, id) {
+  const node = nodes.find(n => n.id === id);
+  if (!node) return;
+  const name = node.name.replace(/\n/g, ' ');
+  tooltip.innerHTML = `<div class="tt-title">${escHtml(name)}</div>${escHtml(node.description || '')}`;
+  tooltip.style.opacity = 1;
+  tooltip.style.left = (e.clientX + 16) + 'px';
+  tooltip.style.top = (e.clientY - 10) + 'px';
+}
+
+function hideTip() { tooltip.style.opacity = 0; }
+
+// Zoom / Pan
+function zoomIn() { zoom = Math.min(zoom * 1.25, 4); render(); }
+function zoomOut() { zoom = Math.max(zoom / 1.25, 0.3); render(); }
+function resetView() { zoom = 1; panX = 0; panY = 0; render(); }
+function toggleLabels() { showLabels = !showLabels; render(); }
+
+function expandAll() {
+  function expand(n) { n.collapsed = false; if (n._children) n._children.forEach(expand); }
+  expand(data);
+  render();
+}
+function collapseAll() {
+  function collapse(n, depth) {
+    if (depth > 1) n.collapsed = true;
+    if (n._children) n._children.forEach(c => collapse(c, depth + 1));
+  }
+  collapse(data, 0);
+  render();
+}
+
+// Mouse pan
+let dragging = false, dragStartX, dragStartY, panStartX, panStartY;
+svg.addEventListener('mousedown', e => {
+  if (e.target.closest('.node-group')) return;
+  dragging = true; dragStartX = e.clientX; dragStartY = e.clientY;
+  panStartX = panX; panStartY = panY;
+});
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  panX = panStartX + (e.clientX - dragStartX);
+  panY = panStartY + (e.clientY - dragStartY);
+  render();
+});
+window.addEventListener('mouseup', () => { dragging = false; });
+
+// Scroll zoom
+svg.addEventListener('wheel', e => {
+  e.preventDefault();
+  if (e.deltaY < 0) zoom = Math.min(zoom * 1.08, 4);
+  else zoom = Math.max(zoom / 1.08, 0.3);
+  render();
+}, { passive: false });
+
+// ─── Initial state: depth 0 & 1 expanded ───────────────────────
+function initCollapse(node, depth) {
+  node.collapsed = depth >= 2;
+  if (node._children) node._children.forEach(c => initCollapse(c, depth + 1));
+}
+
+// children → _children on load
+function prepareData(node) {
+  node._children = node.children || null;
+  delete node.children;
+  node.collapsed = false;
+  if (node._children) node._children.forEach(prepareData);
+}
+
+prepareData(data);
+initCollapse(data, 0);
+render();
+
+// Resize
+window.addEventListener('resize', () => { render(); });
+</script>
+</body>
+</html>

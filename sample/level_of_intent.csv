@@ -1,0 +1,10 @@
+intent_level,event_type,description
+0,genre_view,Scrolling a genre/category
+1,preview,Hovering over a book card
+2,view_details,Clicking a book for full details
+3,add_to_wishlist,Adding to wishlist / save for later
+4,read_start,Starting to read
+5,read_complete,Completing the book
+6,rate_review,Rating or reviewing
+7,purchase,Purchasing the book via a linked store
+8,share,Sharing the book

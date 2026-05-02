@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RecSys ER Diagram — Model Field Explorer</title>
+  <link rel="stylesheet" href="er-style.css" />
+</head>
+<body>
+
+<header>
+  <h1>📚 RecSys — ER Diagram &amp; Model Field Explorer</h1>
+  <div id="active-model-label">Model: <span>None selected</span></div>
+  <button id="model-btn" onclick="toggleDropdown()">🔍 Select Model</button>
+</header>
+
+<div id="model-dropdown">
+  <!-- Populated by JS -->
+</div>
+
+<!-- Legend -->
+<div style="padding: 10px 24px; display:flex; gap:24px; flex-wrap:wrap; font-size:0.78rem; background:#131e2e; border-bottom:1px solid #1e293b;">
+  <span style="color:#cbd5e1;">● Field used in any model</span>
+  <span style="color:#475569;">● Field not used in any model (faded)</span>
+  <span style="color:#fbbf24; font-weight:700;">● Active field in selected model (bold + highlight)</span>
+  <span style="color:#f59e0b;">🔑 Primary Key</span>
+  <span style="color:#60a5fa;">🔗 Foreign Key</span>
+  <span style="color:#93c5fd; background:#1e40af; padding:1px 6px; border-radius:4px;">fact</span>
+  <span style="color:#94a3b8; background:#334155; padding:1px 6px; border-radius:4px;">dim</span>
+</div>
+
+<!-- Model Summary Cards (shown when model selected) -->
+<div id="model-summary" style="display:none; padding:12px 24px; background:#0f172a; border-bottom:1px solid #1e293b;">
+  <div style="font-size:0.8rem; color:#94a3b8; margin-bottom:8px;">Fields used in selected model:</div>
+  <div id="model-fields-list" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+</div>
+
+<div id="er-canvas">
+  <div class="er-layout">
+    <!-- Tables injected by JS -->
+  </div>
+</div>
+
+<!-- Tooltip -->
+<div id="tooltip"></div>
+
+<script src="er-diagram.js"></script>
+<script>
+// Extend selectModel to show summary bar
+const _origSelect = selectModel;
+window.selectModel = function(id) {
+  _origSelect(id);
+  const bar = document.getElementById('model-summary');
+  const list = document.getElementById('model-fields-list');
+  list.innerHTML = '';
+  if (id) {
+    bar.style.display = 'block';
+    const m = MODELS.find(x => x.id === id);
+    Object.entries(m.fields).forEach(([tbl, fields]) => {
+      fields.forEach(f => {
+        const chip = document.createElement('span');
+        chip.style.cssText = 'background:#1d3a5c;color:#fbbf24;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:600;cursor:default;';
+        chip.title = 'Table: ' + tbl;
+        chip.textContent = tbl + '.' + f;
+        list.appendChild(chip);
+      });
+    });
+  } else {
+    bar.style.display = 'none';
+  }
+};
+</script>
+
+</body>
+</html>

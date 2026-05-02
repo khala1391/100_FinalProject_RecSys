@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RecSys ER Diagram — Model Field Explorer</title>
+  <link rel="stylesheet" href="er-style.css" />
+</head>
+<body>
+
+<div id="page-wrapper">
+
+  <!-- TOP HEADER BAR -->
+  <header>
+    <div class="header-left">
+      <h1>📚 RecSys — ER Diagram &amp; Model Field Explorer</h1>
+    </div>
+    <div class="header-right">
+      <div id="active-model-label">Model: <span>None selected</span></div>
+      <button id="model-btn" onclick="toggleDropdown()">🔍 Select Model</button>
+    </div>
+  </header>
+
+  <div id="model-dropdown">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- PAGE TITLE SECTION -->
+  <div id="page-title-section">
+    <h2 id="page-main-heading">Feature used in each model</h2>
+    <div id="legend-bar">
+      <span class="legend-item"><span class="dot used"></span>Field used in any model</span>
+      <span class="legend-item"><span class="dot unused"></span>Field not used in any model</span>
+      <span class="legend-item"><span class="dot active"></span>Active field in selected model</span>
+      <span class="legend-item"><span class="legend-pk">🔑</span>&nbsp;Primary Key</span>
+      <span class="legend-item"><span class="legend-fk">🔗</span>&nbsp;Foreign Key</span>
+      <span class="legend-badge fact">fact</span>
+      <span class="legend-badge dim">dim</span>
+      <span class="legend-hint">Hover table to preview · click model to highlight fields</span>
+    </div>
+  </div>
+
+  <!-- Model Summary (shown when model selected) -->
+  <div id="model-summary">
+    <div class="summary-label">Fields used in selected model:</div>
+    <div id="model-fields-list"></div>
+  </div>
+
+  <!-- Features Matrix Section -->
+  <!-- <div id="features-matrix-section">
+    <div id="features-matrix-header">Feature used in each model — click model header to select / deselect</div>
+    <div id="features-matrix"></div>
+  </div> -->
+
+  <!-- MAIN CONTENT: ER Canvas -->
+  <div id="main-content">
+    <div id="er-canvas">
+      <div class="er-layout">
+        <!-- Tables injected by JS -->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Table Popup (hover expand) -->
+<div id="table-popup"></div>
+
+<!-- Legacy tooltip (hidden) -->
+<div id="tooltip"></div>
+
+<script src="er-diagram.js"></script>
+<script>
+// Extend selectModel to show summary bar
+const _origSelect = selectModel;
+window.selectModel = function(id) {
+  _origSelect(id);
+  const bar = document.getElementById('model-summary');
+  const list = document.getElementById('model-fields-list');
+  list.innerHTML = '';
+  if (id) {
+    bar.style.display = 'flex';
+    const m = MODELS.find(x => x.id === id);
+    Object.entries(m.fields).forEach(([tbl, fields]) => {
+      fields.forEach(f => {
+        const chip = document.createElement('span');
+        chip.className = 'field-chip';
+        chip.title = 'Table: ' + tbl;
+        chip.textContent = tbl + '.' + f;
+        list.appendChild(chip);
+      });
+    });
+  } else {
+    bar.style.display = 'none';
+  }
+};
+</script>
+
+</body>
+</html>
